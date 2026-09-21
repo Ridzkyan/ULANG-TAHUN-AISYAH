@@ -1,0 +1,43 @@
+@import "tailwindcss";
+
+@theme {
+  --color-pastel-pink: #ffd6e0;
+  --color-pastel-blue: #c1e1dc;
+  --color-pastel-yellow: #ffecb3;
+  --color-pastel-purple: #e0bbe4;
+  --color-pastel-green: #d4f0f0;
+  
+  --font-sans: 'Nunito', 'Quicksand', sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: #4a4a4a;
+  overflow-x: hidden;
+}
+
+/* Animated Mesh Gradient Background */
+.mesh-gradient-bg {
+  background: linear-gradient(
+    -45deg, 
+    var(--color-pastel-pink), 
+    var(--color-pastel-blue), 
+    var(--color-pastel-yellow), 
+    var(--color-pastel-purple)
+  );
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
