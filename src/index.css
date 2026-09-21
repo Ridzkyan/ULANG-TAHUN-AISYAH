@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Quicksand:wght@400;500;600;700&display=swap');
 
 @theme {
   --color-pastel-pink: #ffd6e0;
@@ -31,13 +32,43 @@ body {
 }
 
 @keyframes gradientBG {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
+
+/* Float UP for rising love hearts/stars */
+@keyframes floatUp {
+  0% { transform: translateY(0) rotate(0deg) scale(1); opacity: 0.8; }
+  100% { transform: translateY(-110vh) rotate(360deg) scale(0.5); opacity: 0; }
+}
+
+/* Gentle left-right sway */
+@keyframes sway {
+  0%, 100% { transform: translateX(0) rotate(-8deg); }
+  50% { transform: translateX(18px) rotate(8deg); }
+}
+
+/* Shimmer effect on buttons */
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+/* Spin slow for stars */
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Pop-pulse */
+@keyframes popPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.25); }
+}
+
+.animate-float-up { animation: floatUp linear infinite; }
+.animate-sway { animation: sway ease-in-out infinite; }
+.animate-shimmer { animation: shimmer 1.5s infinite; }
+.animate-spin-slow { animation: spinSlow linear infinite; }
+.animate-pop-pulse { animation: popPulse ease-in-out infinite; }
