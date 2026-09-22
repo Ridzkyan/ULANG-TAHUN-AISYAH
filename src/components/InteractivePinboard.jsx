@@ -1,5 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
+import { motion, useInView } from 'framer-motion';
 import { Pin } from 'lucide-react';
 
 const baseReasons = [
@@ -7,7 +7,7 @@ const baseReasons = [
   "Karena kamu selalu bisa bikin aku ketawa.",
   "Karena suara manjanya selalu bikin kangen.",
   "Karena kamu selalu sabar ngadepin aku.",
-  "Karena pipimu ciumable banget.",
+  "Karena pipimu menggemaskan banget.",
   "Karena nggak ada capybara yang bisa ngalahin lucunya kamu.",
   "Karena tiap chat dari kamu bikin senyum-senyum sendiri.",
   "Karena kamu selalu mau dengerin cerita absurdku.",
@@ -73,7 +73,7 @@ const baseReasons = [
   "Karena aku suka elus-elus kepalamu.",
   "Karena aku suka nyium pipimu.",
   "Karena kamu adalah versi terbaik dari dirimu.",
-  "Karena kamu jago masak hati aku biar klepek-klepek.",
+  "Karena kamu jago banget merebut hati aku.",
   "Karena kamu bawelnya ngalahin alarm subuh.",
   "Karena aku suka denger omelanmu.",
   "Karena kamu partner main game terseru.",
@@ -132,9 +132,21 @@ const notesData = generate100Notes();
 
 const InteractivePinboard = () => {
   const constraintsRef = useRef(null);
+  const containerRef = useRef(null);
+  const isInView = useInView(containerRef, { once: true, margin: "100px" });
+  const [visibleCount, setVisibleCount] = useState(0);
+
+  useEffect(() => {
+    if (isInView && visibleCount < notesData.length) {
+      const timer = setTimeout(() => {
+        setVisibleCount((prev) => Math.min(prev + 4, notesData.length));
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [isInView, visibleCount]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto my-32 px-4 relative z-10">
+    <div ref={containerRef} className="w-full max-w-6xl mx-auto my-32 px-4 relative z-10">
       <div className="text-center mb-12">
         <h3 className="text-sm md:text-base font-extrabold text-pink-400 uppercase tracking-widest mb-2">Kenapa Ridho Sayang Kamu?</h3>
         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 flex items-center justify-center gap-3 font-sans">
@@ -153,7 +165,7 @@ const InteractivePinboard = () => {
       >
         <div className="absolute inset-0 bg-black/10 pointer-events-none"></div>
 
-        {notesData.map((note) => (
+        {notesData.slice(0, visibleCount).map((note) => (
           <motion.div
             key={note.id}
             drag
@@ -162,8 +174,7 @@ const InteractivePinboard = () => {
             whileDrag={{ scale: 1.1, zIndex: 100, rotate: 0, cursor: 'grabbing' }}
             whileHover={{ scale: 1.05, zIndex: 90, cursor: 'grab' }}
             initial={{ opacity: 0, scale: 0 }}
-            whileInView={{ opacity: 1, scale: 1, rotate: note.rotate }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, scale: 1, rotate: note.rotate }}
             transition={{ type: "spring", stiffness: 100 }}
             className={`absolute ${note.color} p-2 md:p-3 w-[110px] md:w-[140px] min-h-[110px] md:min-h-[140px] shadow-lg flex flex-col justify-center items-center text-center select-none`}
             style={{
