@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Cat, Gamepad2, Coffee, Heart, Phone, Sparkles, CloudRain, Star, Lock, Cake, MapPin } from 'lucide-react';
 
@@ -15,13 +16,15 @@ const chapterPhotos = [
   [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80], // Bulan 9 (Aug-Sep 2026)
 ];
 
-// Portrait photos (H > W based on WhatsApp typical dimensions)
-// We assume all are portrait-friendly by default; landscape ones use col-span-2
 // Landscape IDs (W > H based on ffmpeg analysis)
 const LANDSCAPE_IDS = new Set([1,3,4,5,6,7,8,9,14,16,18,19,21,22,23,28,29,31,39,41,42,43,44,45,46,47,49,50,51,52,53,54,55,61,62,63,64,65,66,68,69,70,71,72,73,74,75,76,77,78,79,80]);
 
-const PhotoGrid = ({ chapterIndex }) => {
+const PhotoGrid = ({ chapterIndex, isVisible }) => {
   const ids = chapterPhotos[chapterIndex] || [];
+  // Don't render photos at all until the chapter is visible (reduces initial DOM + memory)
+  if (!isVisible) {
+    return <div className="w-full h-64 rounded-[1.5rem] bg-pink-50/50 animate-pulse" />;
+  }
   return (
     <div className="grid grid-cols-2 gap-3 w-full">
       {ids.map((id, i) => {
@@ -34,7 +37,7 @@ const PhotoGrid = ({ chapterIndex }) => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
-            transition={{ duration: 0.6, delay: i * 0.08 }}
+            transition={{ duration: 0.6, delay: Math.min(i * 0.08, 0.4) }}
             className={`rounded-[1.5rem] overflow-hidden shadow-lg border-[4px] border-white/70 bg-pink-50 
               ${isFullWidth ? 'col-span-2 h-52 md:h-64' : 'col-span-1 h-36 md:h-48'}`}
           >
@@ -43,6 +46,8 @@ const PhotoGrid = ({ chapterIndex }) => {
               alt={`Kenangan ${id}`}
               className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
               loading="lazy"
+              decoding="async"
+              fetchpriority="low"
               onError={(e) => { e.target.style.opacity = '0.2'; }}
             />
           </motion.div>
@@ -64,37 +69,56 @@ const FadeText = ({ children, delay = 0 }) => (
   </motion.p>
 );
 
-const StoryContainer = ({ title, subtitle, children, icon: Icon = Cat, chapterIndex, isReversed = false }) => (
-  <div className="mb-32 relative">
-    <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-[120%] bg-gradient-to-b from-transparent via-pink-200 to-transparent -z-10" />
-    <motion.div
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 md:gap-16 items-start`}
-    >
-      {/* Text Card */}
-      <div className="w-full md:w-1/2 relative">
-        <div className="bg-white/90 p-8 md:p-12 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border-[6px] border-white/80 backdrop-blur-md relative z-10">
-          <div className={`absolute -top-10 ${isReversed ? 'md:-right-6 right-1/2 translate-x-1/2 md:translate-x-0' : 'md:-left-6 left-1/2 -translate-x-1/2 md:translate-x-0'} bg-gradient-to-br from-pink-100 to-pink-300 p-5 rounded-full shadow-xl border-4 border-white text-pink-500`}>
-            <Icon size={36} />
-          </div>
-          <div className="mt-8 mb-8 text-center md:text-left">
-            <h3 className="text-sm font-bold text-pink-400 uppercase tracking-[0.3em] mb-2">{subtitle}</h3>
-            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800 leading-snug">{title}</h2>
-          </div>
-          <div className="space-y-2">{children}</div>
-        </div>
-      </div>
 
-      {/* Photo Grid */}
-      <div className="w-full md:w-1/2">
-        <PhotoGrid chapterIndex={chapterIndex} />
-      </div>
-    </motion.div>
-  </div>
-);
+const useInView = (rootMargin = '200px') => {
+  const ref = useRef(null);
+  const [isVisible, setIsVisible] = useState(false);
+  useEffect(() => {
+    if (!ref.current) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setIsVisible(true); observer.disconnect(); } },
+      { rootMargin }
+    );
+    observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [rootMargin]);
+  return [ref, isVisible];
+};
+
+const StoryContainer = ({ title, subtitle, children, icon: Icon = Cat, chapterIndex, isReversed = false }) => {
+  const [containerRef, isVisible] = useInView('300px');
+  return (
+    <div ref={containerRef} className="mb-32 relative">
+      <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-[120%] bg-gradient-to-b from-transparent via-pink-200 to-transparent -z-10" />
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-50px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 md:gap-16 items-start`}
+      >
+        {/* Text Card */}
+        <div className="w-full md:w-1/2 relative">
+          <div className="bg-white/90 p-8 md:p-12 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border-[6px] border-white/80 backdrop-blur-md relative z-10">
+            <div className={`absolute -top-10 ${isReversed ? 'md:-right-6 right-1/2 translate-x-1/2 md:translate-x-0' : 'md:-left-6 left-1/2 -translate-x-1/2 md:translate-x-0'} bg-gradient-to-br from-pink-100 to-pink-300 p-5 rounded-full shadow-xl border-4 border-white text-pink-500`}>
+              <Icon size={36} />
+            </div>
+            <div className="mt-8 mb-8 text-center md:text-left">
+              <h3 className="text-sm font-bold text-pink-400 uppercase tracking-[0.3em] mb-2">{subtitle}</h3>
+              <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800 leading-snug">{title}</h2>
+            </div>
+            <div className="space-y-2">{children}</div>
+          </div>
+        </div>
+
+        {/* Photo Grid — only renders when chapter is near viewport */}
+        <div className="w-full md:w-1/2">
+          <PhotoGrid chapterIndex={chapterIndex} isVisible={isVisible} />
+        </div>
+      </motion.div>
+    </div>
+  );
+};
 
 const LoveStory = () => {
   return (

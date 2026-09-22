@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Music } from 'lucide-react';
 
@@ -6,27 +6,29 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  useEffect(() => {
-    // We create the audio element once and attach it
-    // The user must place 'lagu.mp3' in the public folder.
-    audioRef.current = new Audio('/lagu/lagu.webm');
-    audioRef.current.loop = true;
-
-    return () => {
-      if (audioRef.current) {
-        audioRef.current.pause();
-      }
-    };
+  // Lazily create audio ONLY when user first clicks play.
+  // This prevents music from starting when the intro envelope is clicked,
+  // and also satisfies browser autoplay policies.
+  const getAudio = useCallback(() => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio('/lagu/lagu.webm');
+      audioRef.current.loop = true;
+    }
+    return audioRef.current;
   }, []);
 
   const togglePlay = () => {
+    const audio = getAudio();
     if (isPlaying) {
-      audioRef.current.pause();
+      audio.pause();
+      setIsPlaying(false);
     } else {
-      // Catch promise in case browser blocks autoplay/interaction
-      audioRef.current.play().catch(e => console.log("Play prevented by browser:", e));
+      audio.play().then(() => {
+        setIsPlaying(true);
+      }).catch(e => {
+        console.log('Play prevented by browser:', e);
+      });
     }
-    setIsPlaying(!isPlaying);
   };
 
   return (

@@ -1,23 +1,33 @@
 import { motion } from 'framer-motion';
 import { Heart, Cake, Cloud } from 'lucide-react';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, lazy, Suspense } from 'react';
 import confetti from 'canvas-confetti';
 
+// Eager-loaded: shown immediately
 import BackgroundDecorations from './components/BackgroundDecorations';
-
 import IntroLoader from './components/IntroLoader';
-import PolaroidGallery from './components/PolaroidGallery';
-import LoveStory from './components/LoveStory';
-import LoveLock from './components/LoveLock';
-import FingerprintScanner from './components/FingerprintScanner';
-import InteractivePinboard from './components/InteractivePinboard';
-import SecretEnvelopes from './components/SecretEnvelopes';
-import LoveMeter from './components/LoveMeter';
-import LoveQuiz from './components/LoveQuiz';
-import DateCoupons from './components/DateCoupons';
 import MusicPlayer from './components/MusicPlayer';
-import MidnightSurprise from './components/MidnightSurprise';
-import RelationshipTimer from './components/RelationshipTimer';
+
+// Lazy-loaded: split into separate chunks, loaded on demand
+const PolaroidGallery    = lazy(() => import('./components/PolaroidGallery'));
+const LoveStory          = lazy(() => import('./components/LoveStory'));
+const RelationshipTimer  = lazy(() => import('./components/RelationshipTimer'));
+const FingerprintScanner = lazy(() => import('./components/FingerprintScanner'));
+const LoveLock           = lazy(() => import('./components/LoveLock'));
+const InteractivePinboard= lazy(() => import('./components/InteractivePinboard'));
+const SecretEnvelopes    = lazy(() => import('./components/SecretEnvelopes'));
+const LoveMeter          = lazy(() => import('./components/LoveMeter'));
+const LoveQuiz           = lazy(() => import('./components/LoveQuiz'));
+const DateCoupons        = lazy(() => import('./components/DateCoupons'));
+const MidnightSurprise   = lazy(() => import('./components/MidnightSurprise'));
+
+// Lightweight skeleton shown while lazy components load
+const SectionSkeleton = () => (
+  <div className="w-full max-w-4xl mx-auto my-16 px-4 animate-pulse">
+    <div className="h-8 bg-pink-100 rounded-full w-1/3 mx-auto mb-6" />
+    <div className="h-64 bg-pink-50 rounded-3xl" />
+  </div>
+);
 
 const FloatingElement = ({ children, delay = 0, yOffset = 20, duration = 3, className = "" }) => (
   <motion.div
@@ -132,18 +142,18 @@ function App() {
               </div>
             </motion.div>
 
-            {/* Sequence of Epic Features */}
-            <PolaroidGallery />
-            <LoveStory />
-            <RelationshipTimer />
-            <FingerprintScanner />
-            <LoveLock />
-            <InteractivePinboard />
-            <SecretEnvelopes />
-            <LoveMeter />
-            <LoveQuiz />
-            <DateCoupons />
-            <MidnightSurprise />
+            {/* Sequence of Epic Features - all lazy loaded for performance */}
+            <Suspense fallback={<SectionSkeleton />}><PolaroidGallery /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><LoveStory /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><RelationshipTimer /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><FingerprintScanner /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><LoveLock /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><InteractivePinboard /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><SecretEnvelopes /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><LoveMeter /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><LoveQuiz /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><DateCoupons /></Suspense>
+            <Suspense fallback={<SectionSkeleton />}><MidnightSurprise /></Suspense>
 
             {/* Footer */}
             <motion.div 
