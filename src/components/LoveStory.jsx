@@ -1,78 +1,96 @@
 import { motion } from 'framer-motion';
-import { Cat, Gamepad2, Baby, Coffee, Heart, Phone, Sparkles, CloudRain, Star, Cake } from 'lucide-react';
+import { Cat, Gamepad2, Coffee, Heart, Phone, Sparkles, CloudRain, Star, Lock, Cake, MapPin } from 'lucide-react';
 
-const storyPhotos = Array.from({ length: 50 }).map((_, i) => ({
-  id: i + 1,
-  url: `https://images.unsplash.com/photo-1518199266791-5375a83190b7?auto=format&fit=crop&q=80&w=300&h=${300 + (i % 3) * 50}`, 
-}));
+// Photos 1-80 are actual WebP photos from /foto/
+// We distribute ~8-9 photos per chapter (9 chapters)
+const chapterPhotos = [
+  [1,2,3,4,5,6,7,8],          // Bulan 1  (Dec 2025)
+  [9,10,11,12,13,14,15,16],   // Bulan 2  (Jan 2026)
+  [17,18,19,20,21,22,23,24],  // Bulan 3  (Feb 2026)
+  [25,26,27,28,29,30,31,32],  // Bulan 4  (Mar 2026)
+  [33,34,35,36,37,38,39,40],  // Bulan 5  (Apr 2026)
+  [41,42,43,44,45,46,47,48],  // Bulan 6  (May 2026)
+  [49,50,51,52,53,54,55,56],  // Bulan 7  (Jun 2026)
+  [57,58,59,60,61,62,63,64],  // Bulan 8  (Jul 2026)
+  [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80], // Bulan 9 (Aug-Sep 2026)
+];
 
-const PhotoGrid = ({ startIndex, endIndex }) => {
-  const photos = storyPhotos.slice(startIndex, endIndex);
+// Portrait photos (H > W based on WhatsApp typical dimensions)
+// We assume all are portrait-friendly by default; landscape ones use col-span-2
+// Landscape IDs (W > H based on ffmpeg analysis)
+const LANDSCAPE_IDS = new Set([1,3,4,5,6,7,8,9,14,16,18,19,21,22,23,28,29,31,39,41,42,43,44,45,46,47,49,50,51,52,53,54,55,61,62,63,64,65,66,68,69,70,71,72,73,74,75,76,77,78,79,80]);
+
+const PhotoGrid = ({ chapterIndex }) => {
+  const ids = chapterPhotos[chapterIndex] || [];
   return (
     <div className="grid grid-cols-2 gap-3 w-full">
-      {photos.map((photo, i) => (
-        <motion.div
-          key={photo.id}
-          initial={{ opacity: 0, scale: 0.95 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 0.6, delay: i * 0.1 }}
-          className={`rounded-[2rem] overflow-hidden shadow-lg border-[4px] border-white/70 bg-gray-200 ${i === 0 ? 'row-span-2 col-span-2 h-48 md:h-64' : 'h-24 md:h-32'}`}
-        >
-          <img src={photo.url} alt={`Kenangan ${photo.id}`} className="w-full h-full object-cover hover:scale-110 transition-transform duration-700" />
-        </motion.div>
-      ))}
+      {ids.map((id, i) => {
+        const isLandscape = LANDSCAPE_IDS.has(id);
+        // First photo full-width, landscape photos full-width, portrait in half-width
+        const isFullWidth = i === 0 || isLandscape;
+        return (
+          <motion.div
+            key={id}
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true, margin: "-50px" }}
+            transition={{ duration: 0.6, delay: i * 0.08 }}
+            className={`rounded-[1.5rem] overflow-hidden shadow-lg border-[4px] border-white/70 bg-pink-50 
+              ${isFullWidth ? 'col-span-2 h-52 md:h-64' : 'col-span-1 h-36 md:h-48'}`}
+          >
+            <img
+              src={`/foto/${id}.webp`}
+              alt={`Kenangan ${id}`}
+              className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+              loading="lazy"
+              onError={(e) => { e.target.style.opacity = '0.2'; }}
+            />
+          </motion.div>
+        );
+      })}
     </div>
   );
 };
 
-const FadeText = ({ children, delay = 0, className = "" }) => (
+const FadeText = ({ children, delay = 0 }) => (
   <motion.p
     initial={{ opacity: 0, y: 15 }}
     whileInView={{ opacity: 1, y: 0 }}
     viewport={{ once: true, margin: "-50px" }}
     transition={{ duration: 0.8, delay }}
-    className={`leading-relaxed text-gray-700 text-[1.05rem] md:text-[1.1rem] font-sans tracking-wide mb-4 ${className}`}
+    className="leading-relaxed text-gray-700 text-[1.05rem] md:text-[1.1rem] font-sans tracking-wide mb-4"
   >
     {children}
   </motion.p>
 );
 
-const StoryContainer = ({ title, subtitle, children, icon: Icon = Cat, photos, isReversed = false }) => (
+const StoryContainer = ({ title, subtitle, children, icon: Icon = Cat, chapterIndex, isReversed = false }) => (
   <div className="mb-32 relative">
     <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-1 h-[120%] bg-gradient-to-b from-transparent via-pink-200 to-transparent -z-10" />
-
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-50px" }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 md:gap-16 items-center`}
+      className={`flex flex-col ${isReversed ? 'md:flex-row-reverse' : 'md:flex-row'} gap-8 md:gap-16 items-start`}
     >
+      {/* Text Card */}
       <div className="w-full md:w-1/2 relative">
         <div className="bg-white/90 p-8 md:p-12 rounded-[2.5rem] shadow-[0_20px_50px_rgba(0,0,0,0.05)] border-[6px] border-white/80 backdrop-blur-md relative z-10">
-          
           <div className={`absolute -top-10 ${isReversed ? 'md:-right-6 right-1/2 translate-x-1/2 md:translate-x-0' : 'md:-left-6 left-1/2 -translate-x-1/2 md:translate-x-0'} bg-gradient-to-br from-pink-100 to-pink-300 p-5 rounded-full shadow-xl border-4 border-white text-pink-500`}>
             <Icon size={36} />
           </div>
-          
           <div className="mt-8 mb-8 text-center md:text-left">
-            <h3 className="text-sm md:text-sm font-bold text-pink-400 uppercase tracking-[0.3em] mb-2">{subtitle}</h3>
-            <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 font-sans leading-tight">
-              {title}
-            </h2>
+            <h3 className="text-sm font-bold text-pink-400 uppercase tracking-[0.3em] mb-2">{subtitle}</h3>
+            <h2 className="text-2xl md:text-3xl font-extrabold text-gray-800 leading-snug">{title}</h2>
           </div>
-          
-          <div className="text-justify md:text-left">
-            {children}
-          </div>
+          <div className="space-y-2">{children}</div>
         </div>
       </div>
 
+      {/* Photo Grid */}
       <div className="w-full md:w-1/2">
-        <div className={`${isReversed ? 'md:pr-8' : 'md:pl-8'}`}>
-          {photos}
-        </div>
+        <PhotoGrid chapterIndex={chapterIndex} />
       </div>
     </motion.div>
   </div>
@@ -80,142 +98,185 @@ const StoryContainer = ({ title, subtitle, children, icon: Icon = Cat, photos, i
 
 const LoveStory = () => {
   return (
-    <div className="w-full max-w-6xl mx-auto my-24 px-4 relative z-10">
-      
-      {/* BULAN 1 */}
-      <StoryContainer subtitle="Bulan 1 • Desember 2025" title="Sapaan Subuh Bikin Baper" icon={Gamepad2} photos={<PhotoGrid startIndex={0} endIndex={5} />} isReversed={false}>
+    <section className="w-full max-w-6xl mx-auto my-20 px-4 relative z-10">
+      <div className="text-center mb-20">
+        <h3 className="text-sm font-extrabold text-pink-400 uppercase tracking-widest mb-2">Perjalanan Kita</h3>
+        <h2 className="text-4xl md:text-5xl font-extrabold text-gray-800 font-sans">Kisah Cinta 9 Bulan</h2>
+        <p className="text-gray-500 mt-4 font-medium text-lg max-w-xl mx-auto">Dari teman ngerjain game subuh-subuh, sampai jadi orang paling Ridho sayang di dunia.</p>
+      </div>
+
+      {/* BULAN 1 - Desember 2025 */}
+      <StoryContainer
+        subtitle="Bulan 1 • Desember 2025"
+        title="Dari Kang Joki ke Kang Bucin"
+        icon={Gamepad2}
+        chapterIndex={0}
+        isReversed={false}
+      >
         <FadeText>
-          Lucu ya kalau dipikir-pikir lagi. Cerita kita nggak dimulai dari adegan tabrakan di perpus atau tatap-tatapan romantis di kafe kayak di film-film. Semuanya berawal dari chat super kepagian di jam 04:49 subuh!
+          Semuanya dimulai dari sebuah chat di subuh hari, jam 04.49. Ridho yang baru kenal Aisyah lewat teman, iseng nge-chat buat nanya soal game Construct yang lagi dikerjain bersama. Siapa sangka, dari pertanyaan soal batas 40 event sheet, berujung chat marathon sampai dini hari.
         </FadeText>
-        <FadeText delay={0.2}>
-          "Assalamu'alaikum, ini Ridho temannya Sepa..." ketikku pagi itu, sambil nahan ngantuk berat. Niatku waktu itu polos banget, sumpah. Cuma mau nanya tugas bikin game dan pusing ngurusin kode gratisan yang mentok cuma 40 baris. 
+        <FadeText delay={0.15}>
+          Ridho dengan gagahnya menawarkan diri jadi "kang joki VIP" gratis. Aisyah yang awalnya malu-malu, pelan-pelan mulai nyaman berbagi cerita. Dari urusan game yang ribet, nyambung ke candaan, sampai Ridho bilang dia "rugi" bantuin tapi sebenernya dia yang paling semangat.
         </FadeText>
-        <FadeText delay={0.4}>
-          Tapi ternyata, takdir punya rencananya sendiri. Kode aplikasinya boleh aja mentok di 40 baris, tapi rasa penasaranku ke kamu malah jalan terus tanpa henti. Dari sekadar ngobrolin tugas, malah keterusan ngobrolin keseharian.
+        <FadeText delay={0.3}>
+          Satu bulan penuh ngerjain game bareng, ketawa-ketawa soal event sheet yang penuh batas, dan tanpa sadar Ridho sudah mulai nungguin chat dari Aisyah. Awal yang sederhana banget, tapi dari sinilah semuanya dimulai.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 2 */}
-      <StoryContainer subtitle="Bulan 2 • Januari 2026" title="Kang Joki & Calon Anak Kita" icon={Baby} photos={<PhotoGrid startIndex={5} endIndex={10} />} isReversed={true}>
+      {/* BULAN 2 - Januari 2026 */}
+      <StoryContainer
+        subtitle="Bulan 2 • Januari 2026"
+        title="PDKT Subuh & Candaan yang Baper"
+        icon={Coffee}
+        chapterIndex={1}
+        isReversed={true}
+      >
         <FadeText>
-          Masuk ke bulan kedua, kita makin akrab. Kamu mulai nggak canggung buat curhat. Terutama soal betapa capeknya kamu ngajar anak-anak kecil. 
+          Memasuki Januari, frekuensi chatnya makin sering dan makin ga nyambung sama game. Mulai ngomongin kehidupan sehari-hari, bahas soal nikah muda yang tiba-tiba muncul di obrolan tengah malam, sampai Ridho yang mulai berani kirim sticker sayang-sayangan.
         </FadeText>
-        <FadeText delay={0.2}>
-          "Susahnya ngajarin anak tuh, kek apa coba umiku ngajarin aku sampai bisa kek sekarang," keluhmu malam itu. Karena aku ini cowok yang sigap, aku langsung kasih jurus maut: "Banyakin belajar sayang, nanti buat anak-anak kita kelak... aku juga ikut belajar jadinya nih."
+        <FadeText delay={0.15}>
+          Ada satu momen lucu — Ridho yang biasanya sok cool malah jadi yang paling nunggu balesan. Kalau Aisyah telat balas, dia langsung kirim tanda tanya berderet. Dan kalau Aisyah balas panjang, dia makin semangat ngebalesnya sampai subuh.
         </FadeText>
-        <FadeText delay={0.4}>
-          Kamu cuma balas pakai emoji nangis bombay. Tapi aku yakin seratus persen, di balik layar HP kamu pasti lagi senyum-senyum salah tingkah kan? Ngaku aja deh! Sejak saat itu, panggilan sayang dan candaan soal masa depan jadi obrolan favorit kita berdua.
+        <FadeText delay={0.3}>
+          Di bulan ini Ridho mulai sadar — ini bukan lagi sekadar teman ngerjain tugas. Perasaan yang tumbuh pelan-pelan tapi susah dibendung, dan setiap chat Aisyah jadi hal pertama yang dicari setiap pagi.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 3 */}
-      <StoryContainer subtitle="Bulan 3 • Februari 2026" title="Sahur & Cemburu Sama Capybara" icon={Coffee} photos={<PhotoGrid startIndex={10} endIndex={15} />} isReversed={false}>
+      {/* BULAN 3 - Februari 2026 */}
+      <StoryContainer
+        subtitle="Bulan 3 • Februari 2026"
+        title="Resmi Jadi Milik Satu Sama Lain"
+        icon={Heart}
+        chapterIndex={2}
+        isReversed={false}
+      >
         <FadeText>
-          Di bulan ketiga, kita makin nggak bisa lepas dari telponan. Main Roblox atau sekadar main catur jadi andalanku buat nemenin kamu begadang. Aku masih ingat pas aku harus pamit tidur duluan jam 12 malam karena mau siap-siap sahur sama ibu kos.
+          Februari adalah bulan bersejarah. Setelah hampir dua bulan jadi teman yang "lebih dari teman", akhirnya Ridho resmi meminta Aisyah jadi pacarnya. Kata-kata "sayang" yang tadinya masih canggung, kini keluar alami seperti sudah terbiasa sejak lama.
         </FadeText>
-        <FadeText delay={0.2}>
-          Nah, momen paling epik terjadi waktu kamu ke mal. Tiba-tiba kamu kirim foto lagi meluk boneka gede banget. Terus dengan pedenya kamu nanya, "Lucuan mana, aku atau boneka Capybara?"
+        <FadeText delay={0.15}>
+          Di awal bulan ini, mereka sudah saling manggil "sayang" dan "beb" dengan santainya. Malam-malam begadang bareng via telpon jadi ritual wajib. Aisyah yang lagi istirahat dari nugas malah jadi curhat session sama Ridho, dari nonton TikTok bareng sampai cerita nggak penting yang justru paling diinget.
         </FadeText>
-        <FadeText delay={0.4}>
-          Sebagai pacar yang peka, aku langsung jawab tegas: "Ribuan Capybara nggak bakal bisa ngalahin imutnya kamu, kamu mah 1000/10 lucunya!" Walau di chat kamu sok-sokan biasa aja, aku tahu hati kamu pasti lagi meleyot berjamaah!
+        <FadeText delay={0.3}>
+          Bulan ini Ridho resmi jadi pacar Aisyah — dan sejak saat itu, tidak ada hari tanpa "lopyu sayang" sebelum tidur.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 4 */}
-      <StoryContainer subtitle="Bulan 4 • Maret 2026" title="Tiga Puluh Menit yang Bikin Meleyot" icon={Heart} photos={<PhotoGrid startIndex={15} endIndex={20} />} isReversed={true}>
+      {/* BULAN 4 - Maret 2026 */}
+      <StoryContainer
+        subtitle="Bulan 4 • Maret 2026"
+        title="30 Menit Matung di Depan Kos"
+        icon={MapPin}
+        chapterIndex={3}
+        isReversed={true}
+      >
         <FadeText>
-          Akhirnya kita bisa sering ketemu juga. Jarak bukan lagi masalah buat kita. Malam itu, sehabis nganterin kamu pulang, tiba-tiba kamu nge-chat, "Sayang udah sampai kos?" 
+          Maret datang bersama momen yang sampai sekarang masih sering jadi bahan ketawa — momen legendaris "30 menit matung di depan kosan." Setelah kencan pertama, Ridho dan Aisyah sama-sama gamau pulang duluan. Akhirnya Ridho berdiri di depan kos hampir setengah jam, kaki pegal, tapi tetap ga mau gerak.
         </FadeText>
-        <FadeText delay={0.2}>
-          Pertanyaan itu bikin aku sadar, kita berdua baru aja berdiri matung di depan kosanmu selama 30 menit penuh! Cuma karena nggak ada yang mau pulang duluan. "Lebih itu yakin aku," balasku sambil senyum-senyum sendiri.
+        <FadeText delay={0.15}>
+          Aisyah yang cuci muka dulu baru bobo pun masih sempat kirim chat, "30 menit kita di depan yang," dengan nada manja yang langsung bikin Ridho klepek-klepek. Ridho cuma bisa balas, "lebih itu yakin aku," sambil ngaku pipi Aisyah ciumable banget dan gamau beranjak.
         </FadeText>
-        <FadeText delay={0.4}>
-          Pegal di kaki nggak ada rasanya dibanding senengnya habis meluk kamu. Saking gemasnya, aku sampai ngetik, "Ciumable banget pipimu." Terus kamu protes, "Emang kamu aja yang suka cium-cium!" Hahaha, ya mau gimana lagi? Kan pipimu emang gemesin maksimal!
+        <FadeText delay={0.3}>
+          Dari momen ini juga lahir candaan soal "pelukan di kasur" yang langsung dibalas Aisyah dengan deretan emoji nangis. Bulan penuh momen lucu yang selalu dikenang.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 5 */}
-      <StoryContainer subtitle="Bulan 5 • April 2026" title="Kejutan Tiba-Tiba di Depan Kos" icon={Cat} photos={<PhotoGrid startIndex={20} endIndex={25} />} isReversed={false}>
+      {/* BULAN 5 - April 2026 */}
+      <StoryContainer
+        subtitle="Bulan 5 • April 2026"
+        title="I Love You di Jalanan Malam"
+        icon={Sparkles}
+        chapterIndex={4}
+        isReversed={false}
+      >
         <FadeText>
-          Bulan April dipenuhi hal-hal spontan yang seru. Waktu itu maghrib mau habis, dan kamu bawel banget nge-chat nyuruh aku sholat. "Sayang bangunnn! Isya lohhh!" spam chat-mu bertubi-tubi.
+          April adalah bulan romantis versi Ridho dan Aisyah — versi yang nyata, bukan dari film. Ridho yang lagi otw ke tempat teman malam-malam tiba-tiba kirim, "aku otw tempat padil sayang, I LOVE YOUUU!" dengan deretan emoji hati.
         </FadeText>
-        <FadeText delay={0.2}>
-          Setelah sholat, aku iseng ngetik, "Otw sayang." Nggak lama setelah itu, aku ketik lagi, "Di depan sayang."
+        <FadeText delay={0.15}>
+          Aisyah yang tahu Ridho biasanya cool dan malu-maluan, langsung balas "LOVE YOU TOO" dengan semangat. Teman-teman Ridho yang udah nunggu dari tadi langsung nyosor, nanya kenapa telat. Ridho ngaku dengan polos, "deg-degan," sampai temannya ketawa.
         </FadeText>
-        <FadeText delay={0.4}>
-          "Makk tiba-tiba di depan! Bentar aku pake baju dulu," panikmu lucu banget. Mengagetkanmu dan muncul tiba-tiba di depan kosanmu tuh udah jadi hobi baruku. Ekspresi kagetmu selalu bikin aku ketawa dan makin sayang.
+        <FadeText delay={0.3}>
+          Bulan ini penuh momen kecil yang hangat — dari chat "hati-hati" di malam hari, sampai tawa bareng soal hal-hal random yang cuma mereka yang ngerti. Cinta yang sudah makin nyaman, makin dalam.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 6 */}
-      <StoryContainer subtitle="Bulan 6 • Mei 2026" title="Drama Telepon & Cemburu Tipis" icon={Phone} photos={<PhotoGrid startIndex={25} endIndex={30} />} isReversed={true}>
+      {/* BULAN 6 - Mei 2026 */}
+      <StoryContainer
+        subtitle="Bulan 6 • Mei 2026"
+        title="Imut Itu Aisyah, Bukan Adek!"
+        icon={Star}
+        chapterIndex={5}
+        isReversed={true}
+      >
         <FadeText>
-          Ternyata seorang Ridho bisa cemburu juga lho. Ada momen pas kita lagi asyik, tiba-tiba ada nomor nelpon kamu. Jiwa overthinking-ku langsung meronta. 
+          Mei penuh dengan candaan segar khas mereka. Di satu momen malam, Ridho iseng nyeletuk soal adiknya yang imut dan lucu. Aisyah yang mendengar langsung protes keras, "gaa anjay aku ga amit amit, aku IMUT IMUTTT!" dengan huruf kapital penuh semangat.
         </FadeText>
-        <FadeText delay={0.2}>
-          "Ngapain lagi orang ini nelpon? Angkat, urgent itu," ketikku, sok-sokan cuek padahal aslinya ketar-ketir nunggu jawaban.
+        <FadeText delay={0.15}>
+          Ridho tentu saja langsung ketawa dan ngaku kalau Aisyah tetap yang paling dia sayang. Di bulan yang sama, kebiasaan mandi malam dan telponan sampai jam 1 pagi sudah jadi rutinitas tetap — Aisyah cerita soal hari-harinya, Ridho dengerin sambil senyum-senyum sendiri.
         </FadeText>
-        <FadeText delay={0.4}>
-          Tapi emang dasar Aisyah, kamu selalu punya cara buat bikin aku lega. "Ga mauuu, aku ga suka dia nelpon-nelpon aku. Ga ku angkattt. Udah bobo aja sayang," balasmu. Wah, detik itu juga, egoku sebagai cowok langsung terselamatkan. Kamu paling jago deh bikin aku merasa jadi satu-satunya cowok di duniamu.
+        <FadeText delay={0.3}>
+          Ada juga candaan soal Ridho yang "pengen nongkrong tapi harus pulang cepat" karena Aisyah sudah nunggu kabar. Enam bulan bersama, dan rasanya makin sulit untuk tidak saling kangen.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 7 */}
-      <StoryContainer subtitle="Bulan 7 • Juni 2026" title="Si Imut dan Si Penurut" icon={Sparkles} photos={<PhotoGrid startIndex={30} endIndex={35} />} isReversed={false}>
+      {/* BULAN 7 - Juni 2026 */}
+      <StoryContainer
+        subtitle="Bulan 7 • Juni 2026"
+        title="Kebangun Tengah Malam Karena Hujan"
+        icon={CloudRain}
+        chapterIndex={6}
+        isReversed={false}
+      >
         <FadeText>
-          Makin kesini candaan kita makin absurd. Pernah suatu malam aku ngeledek, "Adeknya imut-imut, kakaknya amit-amit." Kamu nggak terima dan langsung ngegas, "Gak anjay aku ga amit-amit, aku IMUT IMUTTT!" 
+          Di bulan ketujuh, ada momen yang bikin hati hangat banget. Jam 12 malam, Aisyah tiba-tiba kebangun karena suara hujan deras yang ribut di atap kos. Langsung chat Ridho, "hujan deras sayang." Dan Ridho yang dari tadi sudah bilang "kalau kebangun, telpon aja kamar ku sepi," langsung angkat telpon.
         </FadeText>
-        <FadeText delay={0.2}>
-          Di bulan Juni ini juga kamu makin berani ngatur-ngatur lucu. "Kalau kamu ga nurut aku semisal aku kasi tau apapun itu..." ancammu sok galak.
+        <FadeText delay={0.15}>
+          Mereka telponan sambil dengerin hujan bersama. Aisyah bilang, "pacar ais," dengan nada yang manja banget. Ridho balas, "lopyuuu." Sesederhana itu, tapi rasanya seperti dunia cuma milik berdua. Setelah Aisyah ngantuk, Ridho tetap menemani sampai dia ketiduran.
         </FadeText>
-        <FadeText delay={0.4}>
-          Iya, sayangku. Aku bakal selalu nurut kok. Habisnya, tiap kali kamu manggil aku "pacar Ais", semua kata-kata bantahanku mendadak hilang terbang ke langit. Siap laksanakan perintah Bos Aisyah!
+        <FadeText delay={0.3}>
+          Dari momen ini, "nemenin sampai ketiduran" jadi ritual cinta mereka yang paling romantis. Tidak perlu kata-kata besar — cukup suara hujan dan suara satu sama lain.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 8 */}
-      <StoryContainer subtitle="Bulan 8 • Juli 2026" title="Hujan Deras & Jamu Bima" icon={CloudRain} photos={<PhotoGrid startIndex={35} endIndex={40} />} isReversed={true}>
+      {/* BULAN 8 - Juli 2026 */}
+      <StoryContainer
+        subtitle="Bulan 8 • Juli 2026"
+        title="Dengerin Suara Motor Sampai Hilang"
+        icon={Phone}
+        chapterIndex={7}
+        isReversed={true}
+      >
         <FadeText>
-          Juli sering banget hujan deras. Waktu itu jam setengah dua pagi, kamu kebangun karena suara hujan yang ribut banget di atap kos. "Hujan derasss sayang," lapor-mu pakai nada manja andalan.
+          Agustus membawa momen yang diam-diam paling menyentuh hati. Setelah kencan malam, Aisyah mengantarkan Ridho sampai depan kos lalu berdiri mendengarkan suara motor Ridho yang makin lama makin jauh, sampai benar-benar hilang. Baru setelah itu dia masuk ke dalam.
         </FadeText>
-        <FadeText delay={0.2}>
-          Sebagai pacar yang siaga 24/7, aku langsung nemenin kamu telponan. Dari mulai bahas kamu yang minum jamu Bima buat begadang, sampai cerita takut pulang ke kosan gara-gara malam. 
-          Meski jauh, aku selalu pengen mastiin kamu aman dan ngerasa ditemenin. Nemenin malam hujanmu sampai kamu ketiduran, lalu ngucapin "Good night sayangku cintaku, i love you", udah jadi rutinitas wajib yang nggak bakal pernah aku lewatin sehari pun.
+        <FadeText delay={0.15}>
+          Aisyah chat, "sedihnya nahh, aku dengerin suara motormu sampee hilang baru aku masuk kos." Ridho yang baca pesan itu langsung terdiam sebentar, terharu. Dia balas, "ya allah beb, sedih banget, maaf ya malah aku becandain tadi."
+        </FadeText>
+        <FadeText delay={0.3}>
+          Di bulan ini pula ada kelucuan soal foto berdua yang kurang memuaskan — Ridho niat ganti momen foto dengan "aku cubit pipi kamu aja." Delapan bulan bersama, setiap perpisahan selalu terasa terlalu cepat.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 9 */}
-      <StoryContainer subtitle="Bulan 9 • Agustus 2026" title="Sibuk KKN Tapi Tetep Bucin" icon={Star} photos={<PhotoGrid startIndex={40} endIndex={45} />} isReversed={false}>
+      {/* BULAN 9 - Agustus-September 2026 */}
+      <StoryContainer
+        subtitle="Bulan 9 • September 2026"
+        title="Alarm Cinta & Ulang Tahun Sayang"
+        icon={Cake}
+        chapterIndex={8}
+        isReversed={false}
+      >
         <FadeText>
-          Masuk bulan kesembilan, kita mulai sama-sama sibuk ngurusin persiapan KKN. Walaupun kita makin sering ngerasain kangen karena sibuk nugas masing-masing.
-          Tapi setiap ada waktu kosong, kita selalu usahain buat ngabarin dan ketawa bareng lagi. Masa-masa sibuk ini malah bikin kita makin sadar kalau kita beneran butuh satu sama lain.
+          Memasuki bulan kesembilan, Aisyah sudah resmi jadi "alarm hidup" Ridho yang paling reliable. Di pagi hari, Aisyah nelpon diam-diam buat bangunin Ridho sambil dirinya sendiri hampir ketiduran lagi. Lucu, tapi tulus banget.
         </FadeText>
-        <FadeText delay={0.2}>
-          Tapi sesibuk apa pun jadwal kita, selalu ada waktu luang buat bilang, "Aku sayang kamu hari ini dan setiap hari." 
+        <FadeText delay={0.15}>
+          Sesibuk apapun jadwal KKN masing-masing, selalu ada waktu untuk bilang "sayang kamu hari ini dan setiap hari." Dari urusan nugas, persiapan KKN, sampai hal-hal kecil seperti kabar "udah makan belum" — semua terasa hangat karena ada satu orang yang selalu diprioritaskan.
         </FadeText>
-        <FadeText delay={0.4}>
-          Perlahan tapi pasti, nama kamu di HP-ku berevolusi jadi "Aisyah Cantik Blubub Blubub 🐋🤍". Sembilan bulan itu waktu yang lumayan lama, tapi kerasa cepet banget kilat kalau dilewati bareng kamu.
+        <FadeText delay={0.3}>
+          Dan hari ini, di hari ulang tahunmu, Ridho cuma mau bilang satu hal: Terima kasih sudah ada. Terima kasih sudah mau jadi bagian dari hidup yang berantakan ini. Kamu adalah alasan terbaik untuk tetap semangat setiap harinya. Happy Birthday, sayang.
         </FadeText>
       </StoryContainer>
 
-      {/* BULAN 10 */}
-      <StoryContainer subtitle="Bulan 10 • September 2026" title="Selamat Ulang Tahun, Semestaku" icon={Cake} photos={<PhotoGrid startIndex={45} endIndex={50} />} isReversed={true}>
-        <FadeText>
-          Akhirnya kita sampai di hari yang paling spesial. September 2026. Bulan di mana perempuan paling cantik dan bawel kesayanganku ini berulang tahun.
-        </FadeText>
-        <FadeText delay={0.2}>
-          Kalau aku inget-inget lagi semua chat dan obrolan kita dari awal kenal, aku sadar satu hal: jatuh cinta sama kamu tuh gampang banget, senatural napas aja. Dan bertahan sama kamu adalah pilihan terbaik yang pernah aku buat.
-        </FadeText>
-        <FadeText delay={0.4}>
-          Selamat ulang tahun, Aisyah Nadilla. Perjalanan yang dimulai dari nugas bikin game ini, nggak bakal pernah ada kata Game Over-nya. Kita bakal terus nambah level baru, bulan demi bulan, sampai waktu capek ngitungnya.
-        </FadeText>
-        <FadeText delay={0.6} className="text-center md:text-left font-bold text-2xl text-pink-500 mt-10 font-sans">
-          Aku sayang kamu banget. ❤️<br/>
-          <span className="text-lg text-gray-500 mt-2 block font-normal italic">- Pacarmu, Ridho -</span>
-        </FadeText>
-      </StoryContainer>
-
-    </div>
+    </section>
   );
 };
 

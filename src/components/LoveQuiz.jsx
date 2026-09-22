@@ -5,64 +5,64 @@ import confetti from 'canvas-confetti';
 
 const allQuestions = [
   {
-    question: "Berapa skor keimutan Aisyah kalau dibandingin sama Capybara? 🐋",
-    options: ["10/10", "100/10", "1000/10", "100000/10"],
+    question: "Jam berapa Ridho nge-chat pertama kali ke Aisyah waktu subuh? ⏰",
+    options: ["03:00", "04:00", "04:49", "05:30"],
     correct: 2,
-    wrongMsg: "Masa lupa sih seberapa imutnya dirimu?! Coba lagi sayang! 🥺"
+    wrongMsg: "Aduh, lupa ya momen bersejarah kita dimulai jam berapa? 🥺"
   },
   {
-    question: "Di mana letak tempat Ridho matung kedinginan selama 30 menit? 🧍‍♂️",
-    options: ["Di Mall", "Di depan Kosan Aisyah", "Di Kampus", "Di Cafe"],
+    question: "Awalnya Ridho nge-chat Aisyah subuh-subuh karena urusan apa? 🎮",
+    options: ["Minta nomor WA", "Nanya soal event sheet game Construct", "Mau kenalan doang", "Salah kirim pesan"],
     correct: 1,
-    wrongMsg: "Salah dong! Padahal waktu itu kakiku sampai pegal lho. 😩"
+    wrongMsg: "Hayooo lupa asal muasalnya kita gimana? Dari nugas game lho! 😄"
   },
   {
-    question: "Jam berapa Ridho nge-chat 'Sapaan Subuh' pertama kali waktu kita PDKT? ⏰",
-    options: ["03:00", "04:15", "04:49", "05:30"],
+    question: "Berapa batas maksimal event sheet di Construct versi gratis yang jadi topik pertama kita? 🔢",
+    options: ["20", "30", "40", "50"],
     correct: 2,
-    wrongMsg: "Hayoo lupa ya awal mula kita dekat jam berapa? 🤨"
+    wrongMsg: "Itu yang bikin Ridho nge-chat subuh-subuh lho, masa lupa! 😂"
   },
   {
-    question: "Kebiasaan lucu Aisyah yang paling sering dilakuin kalau habis makan? 😴",
-    options: ["Nyuci piring", "Ketiduran nyenyak", "Main HP", "Nonton Drakor"],
+    question: "Di mana Ridho matung hampir 30 menit karena gamau pisah sama Aisyah? 📍",
+    options: ["Di Parkiran Mall", "Di Depan Kosan Aisyah", "Di Kampus", "Di Cafe"],
     correct: 1,
-    wrongMsg: "Tukang tidur kok nggak ngaku! 😂"
+    wrongMsg: "Kaki Ridho sampai pegal lho berdiri di sana! 😩"
   },
   {
-    question: "Emoji apa yang jadi ciri khas kebesaran Aisyah Cantik Blubub Blubub? ✨",
-    options: ["🐋🤍", "🐶❤️", "🐸💚", "🐱💛"],
-    correct: 0,
-    wrongMsg: "Masa lupa sama emoji kebesaran kita sendiri! 🐋"
-  },
-  {
-    question: "Hobi utama Ridho kalau lagi nggak dilarang sama Aisyah? ♟️",
-    options: ["Tidur Seharian", "Main Catur", "Main Mobile Legends", "Nonton Anime"],
+    question: "Apa yang Aisyah lakukan saat dengar suara motor Ridho pergi? 💔",
+    options: ["Langsung tidur", "Dengerin sampai suaranya hilang baru masuk kos", "Langsung nelpon balik", "Nangis di kamar"],
     correct: 1,
-    wrongMsg: "Salah! Padahal Ridho sering banget pengen main catur. 🥺"
+    wrongMsg: "Momen ini bikin Ridho terharu banget lho! 😭❤️"
   },
   {
-    question: "Waktu nugas bareng subuh-subuh, software game apa yang kita debatin? 🎮",
-    options: ["Roblox", "Construct", "Unity", "Unreal Engine"],
+    question: "Aisyah pernah protes keras soal apa di bulan ke-6? 😤",
+    options: ["Ridho jarang nelpon", "Ridho bilang adeknya lebih imut dari Aisyah", "Ridho lupa anniversary", "Ridho telat balas chat"],
     correct: 1,
-    wrongMsg: "Loh kok salah? Itu kan sejarah awal kita kenalan. 😂"
+    wrongMsg: "Aisyah langsung ngetik 'AKU IMUT IMUTTT' pake huruf kapital semua lho! 😂"
   },
   {
-    question: "Kalau Ridho udah manggil 'Sayang bangunnn! Isya lohhh!', artinya apa? 🕌",
-    options: ["Ridho laper", "Ridho kangen", "Aisyah telat sholat gara-gara ketiduran", "Ngajak main game"],
+    question: "Kenapa Aisyah telpon Ridho di subuh hari di bulan ke-9? ⏰",
+    options: ["Kangen aja", "Mau bangunin Ridho biar ga kesiangan", "Ada kabar penting", "Ridho yang minta dibangunin"],
+    correct: 1,
+    wrongMsg: "Aisyah ini alarm paling setia yang pernah ada! 😄"
+  },
+  {
+    question: "Di bulan ke-7, Aisyah kebangun tengah malam karena apa? 🌧️",
+    options: ["Mimpi buruk", "Alarm berbunyi", "Hujan deras di atap kos", "Ada yang nelpon"],
     correct: 2,
-    wrongMsg: "Tuh kan ketahuan sering telat bangun sholat! 😂"
+    wrongMsg: "Waktu itu hujan derasnya ribut banget di atap kos lho! 🌧️"
   },
   {
-    question: "Siapa pasangan paling bucin dan gemesin se-Samarinda? 💑",
-    options: ["Ridho & Aisyah", "Romeo & Juliet", "Habibie & Ainun", "Capybara & Kucing"],
-    correct: 0,
-    wrongMsg: "Bukan! Jawabannya pasti kita berdua lah! 😍"
-  },
-  {
-    question: "Sikap Ridho yang paling Aisyah butuhkan pas lagi banyak modul/tugas? 📚",
-    options: ["Bantuin doa", "Nyuruh tidur", "Jadi Kang Joki VIP", "Diem aja"],
+    question: "Berapa skor keimutan Aisyah menurut Ridho dibanding Capybara? 🐋",
+    options: ["10/10", "100/10", "1000/10", "9999/10"],
     correct: 2,
-    wrongMsg: "Masa pacarnya yang kang joki rela berkorban ini dilupain! 😤"
+    wrongMsg: "Masa lupa sih seberapa imutnya dirimu sendiri?! 🥺"
+  },
+  {
+    question: "Lagu favorit Ridho dan Aisyah yang dipakai di website ini adalah? 🎵",
+    options: ["Kangen - Dewa 19", "Bola Mata Sayu - DNanda", "Satu Dalam Hatiku", "Tak Ingin Usai"],
+    correct: 1,
+    wrongMsg: "Itu lagunya yang menemani website kita dari awal lho sayang! 🎶"
   }
 ];
 

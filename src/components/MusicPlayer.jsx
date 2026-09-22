@@ -9,7 +9,7 @@ const MusicPlayer = () => {
   useEffect(() => {
     // We create the audio element once and attach it
     // The user must place 'lagu.mp3' in the public folder.
-    audioRef.current = new Audio('/lagu.mp3');
+    audioRef.current = new Audio('/lagu/lagu.webm');
     audioRef.current.loop = true;
 
     return () => {

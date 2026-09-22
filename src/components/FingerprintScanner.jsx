@@ -45,19 +45,21 @@ const FingerprintScanner = () => {
     };
   }, [isScanning, isComplete]);
 
-  // Typewriter effect when complete
+  // Typewriter effect when complete — use ref to avoid stale closure bug
+  const typeIndexRef = useRef(0);
   useEffect(() => {
     if (isComplete) {
-      let i = 0;
+      typeIndexRef.current = 0;
       setTerminalText("");
       const typingInterval = setInterval(() => {
-        if (i < fullText.length) {
-          setTerminalText((prev) => prev + fullText.charAt(i));
-          i++;
+        const idx = typeIndexRef.current;
+        if (idx < fullText.length) {
+          setTerminalText(fullText.substring(0, idx + 1));
+          typeIndexRef.current += 1;
         } else {
           clearInterval(typingInterval);
         }
-      }, 50);
+      }, 45);
       return () => clearInterval(typingInterval);
     }
   }, [isComplete]);

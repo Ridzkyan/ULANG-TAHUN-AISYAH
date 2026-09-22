@@ -3,6 +3,8 @@ import { Heart, Cake, Cloud } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import confetti from 'canvas-confetti';
 
+import BackgroundDecorations from './components/BackgroundDecorations';
+
 import IntroLoader from './components/IntroLoader';
 import PolaroidGallery from './components/PolaroidGallery';
 import LoveStory from './components/LoveStory';
@@ -73,6 +75,9 @@ function App() {
       {introFinished && (
         <div className="min-h-screen mesh-gradient-bg overflow-x-hidden font-sans relative pb-32">
           
+          {/* All floating hearts, stars, sparkles */}
+          <BackgroundDecorations />
+
           <MusicPlayer />
 
           {/* Decorative background clouds */}
