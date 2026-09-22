@@ -361,10 +361,10 @@ const LoveStory = () => {
           Maret datang bersama momen yang sampai sekarang masih sering jadi bahan ketawa — momen legendaris "30 menit matung di depan kosan." Setelah kencan pertama, Ridho dan Aisyah sama-sama gamau pulang duluan. Akhirnya Ridho berdiri di depan kos hampir setengah jam, kaki pegal, tapi tetap ga mau gerak.
         </FadeText>
         <FadeText delay={0.15}>
-          Aisyah yang cuci muka dulu baru bobo pun masih sempat kirim chat, "30 menit kita di depan yang," dengan nada manja yang langsung bikin Ridho klepek-klepek. Ridho cuma bisa balas, "lebih itu yakin aku," sambil ngaku pipi Aisyah ciumable banget dan gamau beranjak.
+          Aisyah yang cuci muka dulu baru bobo pun masih sempat kirim chat, "30 menit kita di depan yang," dengan nada manja yang langsung bikin Ridho klepek-klepek. Ridho cuma bisa balas, "lebih itu yakin aku," sambil ngaku kalau Aisyah gemesin banget hari itu sampai dia gamau beranjak.
         </FadeText>
         <FadeText delay={0.3}>
-          Dari momen ini juga lahir candaan soal "pelukan di kasur" yang langsung dibalas Aisyah dengan deretan emoji nangis. Bulan penuh momen lucu yang selalu dikenang.
+          Dari momen ini juga lahir candaan soal Ridho yang pura-pura "kedinginan di luar" yang langsung dibalas Aisyah dengan deretan emoji tertawa. Bulan penuh momen lucu yang selalu dikenang.
         </FadeText>
       </StoryContainer>
 
@@ -380,7 +380,7 @@ const LoveStory = () => {
           April adalah bulan romantis versi Ridho dan Aisyah — versi yang nyata, bukan dari film. Ridho yang lagi otw ke tempat teman malam-malam tiba-tiba kirim, "aku otw tempat padil sayang, I LOVE YOUUU!" dengan deretan emoji hati.
         </FadeText>
         <FadeText delay={0.15}>
-          Aisyah yang tahu Ridho biasanya cool dan malu-maluan, langsung balas "LOVE YOU TOO" dengan semangat. Teman-teman Ridho yang udah nunggu dari tadi langsung nyosor, nanya kenapa telat. Ridho ngaku dengan polos, "deg-degan," sampai temannya ketawa.
+          Aisyah yang tahu Ridho biasanya cool dan malu-maluan, langsung balas "LOVE YOU TOO" dengan semangat. Teman-teman Ridho yang udah nunggu dari tadi langsung kepo mencecar, nanya kenapa datangnya senyum-senyum sendiri. Ridho ngaku dengan polos, "deg-degan habis dichat," sampai temannya ketawa.
         </FadeText>
         <FadeText delay={0.3}>
           Bulan ini penuh momen kecil yang hangat — dari chat "hati-hati" di malam hari, sampai tawa bareng soal hal-hal random yang cuma mereka yang ngerti. Cinta yang sudah makin nyaman, makin dalam.
@@ -415,7 +415,7 @@ const LoveStory = () => {
         isReversed={false}
       >
         <FadeText>
-          Di bulan ketujuh, ada momen yang bikin hati hangat banget. Jam 12 malam, Aisyah tiba-tiba kebangun karena suara hujan deras yang ribut di atap kos. Langsung chat Ridho, "hujan deras sayang." Dan Ridho yang dari tadi sudah bilang "kalau kebangun, telpon aja kamar ku sepi," langsung angkat telpon.
+          Di bulan ketujuh, ada momen yang bikin hati hangat banget. Jam 12 malam, Aisyah tiba-tiba kebangun karena suara hujan deras yang ribut di atap kos. Langsung chat Ridho, "hujan deras sayang." Dan Ridho yang dari tadi sudah berpesan "kalau kebangun, telpon aku aja ya," langsung merespon dengan sigap.
         </FadeText>
         <FadeText delay={0.15}>
           Mereka telponan sambil dengerin hujan bersama. Aisyah bilang, "pacar ais," dengan nada yang manja banget. Ridho balas, "lopyuuu." Sesederhana itu, tapi rasanya seperti dunia cuma milik berdua. Setelah Aisyah ngantuk, Ridho tetap menemani sampai dia ketiduran.

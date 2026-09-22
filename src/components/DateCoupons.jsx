@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Ticket, MapPin, Film, UtensilsCrossed, IceCream, Bike, Moon, Heart } from 'lucide-react';
+import { Ticket, MapPin, Film, UtensilsCrossed, IceCream, Bike, BookOpen, Heart } from 'lucide-react';
 
 const couponsData = [
   { id: 1, title: "Jalan Keliling Samarinda", desc: "Klaim kupon ini buat muter-muter Samarinda sepuasnya bareng aku tanpa tujuan pasti!", icon: MapPin, color: "bg-blue-50 text-blue-600 border-blue-200" },
@@ -8,7 +8,7 @@ const couponsData = [
   { id: 3, title: "Makan Sate", desc: "Lapar tengah malam? Pakai kupon ini buat diculik makan sate enak kesukaan kita.", icon: UtensilsCrossed, color: "bg-orange-50 text-orange-600 border-orange-200" },
   { id: 4, title: "Makan Es Krim", desc: "Klaim untuk 1 porsi es krim rasa apa saja! Biar mood Aisyah manis lagi seharian.", icon: IceCream, color: "bg-pink-50 text-pink-600 border-pink-200" },
   { id: 5, title: "Sepedaan Pagi", desc: "Siap nemenin olahraga sepedaan pagi keliling kota sambil hirup udara segar berdua.", icon: Bike, color: "bg-teal-50 text-teal-600 border-teal-200" },
-  { id: 6, title: "Bobo Sama Aku", desc: "Kupon spesial buat dipeluk erat-erat sampai ketiduran dengan nyenyak. ❤️", icon: Moon, color: "bg-red-50 text-red-600 border-red-200" },
+  { id: 6, title: "Beliin Buku ke Gramed", desc: "Kupon spesial buat jajan buku di Gramedia sepuasnya! Biar nambah bahan bacaan baru. 📚", icon: BookOpen, color: "bg-red-50 text-red-600 border-red-200" },
 ];
 
 const DateCoupons = () => {
