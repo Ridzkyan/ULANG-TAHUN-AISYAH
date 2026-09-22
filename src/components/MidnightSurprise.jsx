@@ -40,7 +40,7 @@ const MidnightSurprise = () => {
       >
         <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-transparent via-white/40 to-transparent -translate-x-full group-hover:animate-[shimmer_1.5s_infinite]"></span>
         <Sparkles size={24} className="animate-pulse" />
-        Jangan Ditekan Sebelum Jam 12!
+        Jangan Ditekan BAHAYA SAYANG!!!
       </motion.button>
 
       <p className="text-gray-400 font-medium text-sm mt-6">Peringatan: Tombol ini sangat berbahaya jika ditekan sembarangan. ⚠️</p>
