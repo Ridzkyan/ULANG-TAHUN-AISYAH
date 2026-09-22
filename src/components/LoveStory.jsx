@@ -5,15 +5,15 @@ import { Cat, Gamepad2, Coffee, Heart, Phone, Sparkles, CloudRain, Star, Lock, C
 // Photos 1-80 are actual WebP photos from /foto/
 // We distribute ~8-9 photos per chapter (9 chapters)
 const chapterPhotos = [
-  [1,2,3,4,5,6,7,8],          // Bulan 1  (Dec 2025)
-  [9,10,11,12,13,14,15,16],   // Bulan 2  (Jan 2026)
-  [17,18,19,20,21,22,23,24],  // Bulan 3  (Feb 2026)
-  [25,26,27,28,29,30,31,32],  // Bulan 4  (Mar 2026)
-  [33,34,35,36,37,38,39,40],  // Bulan 5  (Apr 2026)
-  [41,42,43,44,45,46,47,48],  // Bulan 6  (May 2026)
-  [49,50,51,52,53,54,55,56],  // Bulan 7  (Jun 2026)
-  [57,58,59,60,61,62,63,64],  // Bulan 8  (Jul 2026)
-  [65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80], // Bulan 9 (Aug-Sep 2026)
+  [1, 2, 4],        // Bulan 1  (Dec 2025)
+  [9, 10, 11],      // Bulan 2  (Jan 2026)
+  [18, 19, 21],     // Bulan 3  (Feb 2026)
+  [26, 27, 28],     // Bulan 4  (Mar 2026)
+  [33, 34, 39],     // Bulan 5  (Apr 2026)
+  [41, 42, 43],     // Bulan 6  (May 2026)
+  [49, 50, 52],     // Bulan 7  (Jun 2026)
+  [57, 58, 61],     // Bulan 8  (Jul 2026)
+  [65, 68, 70, 75], // Bulan 9 (Aug-Sep 2026)
 ];
 
 // Landscape IDs (W > H based on ffmpeg analysis)
