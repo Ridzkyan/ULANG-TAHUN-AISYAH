@@ -28,11 +28,12 @@ const MidnightSurprise = () => {
         return clearInterval(interval);
       }
 
-      const particleCount = 50 * (timeLeft / duration);
+      // Reduced from 50 to 25 to prevent lag
+      const particleCount = 25 * (timeLeft / duration);
       // since particles fall down, start a bit higher than random
       confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
       confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-    }, 250);
+    }, 800); // Increased interval from 250ms to 800ms to significantly reduce lag
   }, []);
 
   const closeSurprise = () => {

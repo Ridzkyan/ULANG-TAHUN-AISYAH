@@ -26,6 +26,25 @@ const MusicPlayer = () => {
     };
   }, []);
 
+  // Pause music when tab is hidden, resume when tab is active (if it was playing)
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (!audioRef.current) return;
+      if (document.hidden) {
+        audioRef.current.pause();
+      } else {
+        if (isPlaying) {
+          audioRef.current.play().catch(e => console.log('Autoplay prevented by browser:', e));
+        }
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
+  }, [isPlaying]);
+
   const togglePlay = () => {
     if (!audioRef.current) return;
     
