@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Cat, Gamepad2, Coffee, Heart, Phone, Sparkles, CloudRain, Star, Lock, Cake, MapPin } from 'lucide-react';
+import { Cat, Gamepad2, Coffee, Heart, Phone, Sparkles, CloudRain, Star, Lock, Cake, MapPin, X } from 'lucide-react';
 
 // Photos 1-80 are actual WebP photos from /foto/
 // We distribute ~8-9 photos per chapter (9 chapters)
@@ -142,10 +142,11 @@ const StoryContainer = ({ title, subtitle, children, icon: Icon = Cat, chapterIn
 
 const AutoScrollGallery = () => {
   const scrollRef = useRef(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const el = scrollRef.current;
-    if (!el) return;
+    if (!el || isModalOpen) return; // Pause scrolling if modal is open
     
     let animationId;
     let scrollPos = 0;
@@ -177,7 +178,7 @@ const AutoScrollGallery = () => {
       el.removeEventListener('touchstart', pause);
       el.removeEventListener('touchend', resume);
     };
-  }, []);
+  }, [isModalOpen]);
 
   // Use a selection of photos, duplicated for infinite scroll seamless effect
   const allPhotos = Array.from({length: 80}, (_, i) => i + 1);
@@ -186,37 +187,99 @@ const AutoScrollGallery = () => {
   const displayPhotos = [...shuffled, ...shuffled];
 
   return (
-    <div className="w-full mt-10 mb-10 overflow-hidden relative">
-      <div className="text-center mb-8">
-        <h3 className="text-sm md:text-base font-extrabold text-pink-400 uppercase tracking-[0.3em] mb-2">GALERI MEMORI KITA</h3>
-        <p className="text-gray-500 font-medium text-sm md:text-base">Momen-momen lucu yang selalu bikin senyum ✨</p>
-      </div>
-      <div className="relative w-full">
-        {/* Gradient overlays to hide the edges smoothly */}
-        <div className="absolute top-0 left-0 w-16 md:w-32 h-full bg-gradient-to-r from-[rgba(255,245,248,1)] to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute top-0 right-0 w-16 md:w-32 h-full bg-gradient-to-l from-[rgba(255,245,248,1)] to-transparent z-10 pointer-events-none"></div>
-        
-        <div 
-          ref={scrollRef} 
-          className="flex gap-4 md:gap-6 overflow-x-auto whitespace-nowrap px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] cursor-grab active:cursor-grabbing"
-          style={{ scrollBehavior: 'auto', WebkitOverflowScrolling: 'touch' }}
-        >
-          {displayPhotos.map((id, index) => (
-            <div key={`${id}-${index}`} className="w-48 h-64 md:w-64 md:h-80 flex-shrink-0 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white/90 bg-pink-50 relative group">
-              <img
-                src={`/foto/${id}.webp`}
-                alt={`Kenangan acak ${id}`}
-                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                loading="lazy"
-                decoding="async"
-              />
-              {/* Optional overlay effect on hover */}
-              <div className="absolute inset-0 bg-pink-500/0 group-hover:bg-pink-500/10 transition-colors duration-300"></div>
-            </div>
-          ))}
+    <>
+      <div className="w-full mt-10 mb-10 overflow-hidden relative flex flex-col items-center">
+        <div className="text-center mb-8">
+          <h3 className="text-sm md:text-base font-extrabold text-pink-400 uppercase tracking-[0.3em] mb-2">GALERI MEMORI KITA</h3>
+          <p className="text-gray-500 font-medium text-sm md:text-base">Momen-momen lucu yang selalu bikin senyum ✨</p>
         </div>
+        
+        <div className="relative w-full">
+          {/* Gradient overlays to hide the edges smoothly */}
+          <div className="absolute top-0 left-0 w-16 md:w-32 h-full bg-gradient-to-r from-[rgba(255,245,248,1)] to-transparent z-10 pointer-events-none"></div>
+          <div className="absolute top-0 right-0 w-16 md:w-32 h-full bg-gradient-to-l from-[rgba(255,245,248,1)] to-transparent z-10 pointer-events-none"></div>
+          
+          <div 
+            ref={scrollRef} 
+            className="flex gap-4 md:gap-6 overflow-x-auto whitespace-nowrap px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] cursor-grab active:cursor-grabbing"
+            style={{ scrollBehavior: 'auto', WebkitOverflowScrolling: 'touch' }}
+          >
+            {displayPhotos.map((id, index) => (
+              <div key={`${id}-${index}`} className="w-48 h-64 md:w-64 md:h-80 flex-shrink-0 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white/90 bg-pink-50 relative group" onClick={() => setIsModalOpen(true)}>
+                <img
+                  src={`/foto/${id}.webp`}
+                  alt={`Kenangan acak ${id}`}
+                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-pink-500/0 group-hover:bg-pink-500/10 transition-colors duration-300"></div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Tombol Buka Galeri */}
+        <button 
+          onClick={() => setIsModalOpen(true)}
+          className="mt-8 px-8 py-3 bg-gradient-to-r from-pink-400 to-pink-500 text-white font-bold rounded-full shadow-lg hover:shadow-pink-400/50 hover:scale-105 active:scale-95 transition-all duration-300 z-20 flex items-center gap-2"
+        >
+          <Star size={18} className="animate-pulse" />
+          Lihat Semua 80 Foto
+          <Star size={18} className="animate-pulse" />
+        </button>
       </div>
-    </div>
+
+      {/* Modal Popup Galeri Penuh */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 md:p-12">
+          {/* Overlay Background */}
+          <motion.div 
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+            onClick={() => setIsModalOpen(false)}
+          />
+          
+          {/* Modal Container */}
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }} 
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.9, y: 20 }}
+            className="relative w-full max-w-6xl h-[85vh] bg-white rounded-[2rem] shadow-2xl overflow-hidden flex flex-col border-[4px] border-pink-200"
+          >
+            {/* Modal Header */}
+            <div className="flex items-center justify-between p-4 md:p-6 border-b border-pink-100 bg-pink-50/50">
+              <div>
+                <h3 className="text-xl md:text-2xl font-extrabold text-pink-500">Galeri Spesial 80 Kenangan</h3>
+                <p className="text-gray-500 text-sm md:text-base font-medium">Banyak banget foto lucunya! 💖</p>
+              </div>
+              <button 
+                onClick={() => setIsModalOpen(false)}
+                className="w-10 h-10 bg-white border-2 border-pink-200 rounded-full flex items-center justify-center text-pink-400 hover:bg-pink-400 hover:text-white transition-colors shadow-sm"
+              >
+                <X size={24} />
+              </button>
+            </div>
+
+            {/* Modal Content - Scrollable Grid */}
+            <div className="flex-1 overflow-y-auto p-4 md:p-6 bg-gray-50/50">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 md:gap-4">
+                {allPhotos.map((id) => (
+                  <div key={id} className="w-full aspect-[3/4] rounded-xl overflow-hidden shadow-sm border-2 border-white bg-pink-50 hover:shadow-lg hover:border-pink-300 transition-all duration-300">
+                    <img
+                      src={`/foto/${id}.webp`}
+                      alt={`Foto ke ${id}`}
+                      className="w-full h-full object-cover"
+                      loading="lazy"
+                    />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
+    </>
   );
 };
 
