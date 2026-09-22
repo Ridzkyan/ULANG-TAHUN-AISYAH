@@ -45,7 +45,7 @@ const PhotoGrid = ({ chapterIndex, isVisible }) => {
               src={`/foto/${id}.webp`}
               alt={`Kenangan ${id}`}
               // Menggunakan w-full dan h-auto tanpa object-cover agar gambar tidak terpotong
-              className="w-full h-auto max-h-[70vh] object-contain hover:scale-110 transition-transform duration-700"
+              className="w-full h-auto max-h-[35vh] md:max-h-[45vh] object-contain hover:scale-110 transition-transform duration-700"
               loading="lazy"
               decoding="async"
               fetchpriority="low"
@@ -117,6 +117,86 @@ const StoryContainer = ({ title, subtitle, children, icon: Icon = Cat, chapterIn
           <PhotoGrid chapterIndex={chapterIndex} isVisible={isVisible} />
         </div>
       </motion.div>
+    </div>
+  );
+};
+
+const AutoScrollGallery = () => {
+  const scrollRef = useRef(null);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    
+    let animationId;
+    let scrollPos = 0;
+    
+    const scroll = () => {
+      if (!el) return;
+      scrollPos += 0.8; // scroll speed
+      if (scrollPos >= el.scrollWidth / 2) {
+        scrollPos = 0; // reset for infinite effect
+      }
+      el.scrollLeft = scrollPos;
+      animationId = requestAnimationFrame(scroll);
+    };
+    
+    animationId = requestAnimationFrame(scroll);
+    
+    const pause = () => cancelAnimationFrame(animationId);
+    const resume = () => animationId = requestAnimationFrame(scroll);
+
+    el.addEventListener('mouseenter', pause);
+    el.addEventListener('mouseleave', resume);
+    el.addEventListener('touchstart', pause, { passive: true });
+    el.addEventListener('touchend', resume);
+
+    return () => {
+      cancelAnimationFrame(animationId);
+      el.removeEventListener('mouseenter', pause);
+      el.removeEventListener('mouseleave', resume);
+      el.removeEventListener('touchstart', pause);
+      el.removeEventListener('touchend', resume);
+    };
+  }, []);
+
+  // Use a selection of photos, duplicated for infinite scroll seamless effect
+  const allPhotos = Array.from({length: 80}, (_, i) => i + 1);
+  // Randomly shuffle photos for this gallery so it's a fun mix
+  const shuffled = [...allPhotos].sort(() => 0.5 - Math.random());
+  const displayPhotos = [...shuffled, ...shuffled];
+
+  return (
+    <div className="w-full mt-10 mb-10 overflow-hidden relative">
+      <div className="text-center mb-8">
+        <h3 className="text-sm md:text-base font-extrabold text-pink-400 uppercase tracking-[0.3em] mb-2">GALERI MEMORI KITA</h3>
+        <p className="text-gray-500 font-medium text-sm md:text-base">Momen-momen lucu yang selalu bikin senyum ✨</p>
+      </div>
+      <div className="relative w-full">
+        {/* Gradient overlays to hide the edges smoothly */}
+        <div className="absolute top-0 left-0 w-16 md:w-32 h-full bg-gradient-to-r from-[rgba(255,245,248,1)] to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute top-0 right-0 w-16 md:w-32 h-full bg-gradient-to-l from-[rgba(255,245,248,1)] to-transparent z-10 pointer-events-none"></div>
+        
+        <div 
+          ref={scrollRef} 
+          className="flex gap-4 md:gap-6 overflow-x-auto whitespace-nowrap px-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none] cursor-grab active:cursor-grabbing"
+          style={{ scrollBehavior: 'auto', WebkitOverflowScrolling: 'touch' }}
+        >
+          {displayPhotos.map((id, index) => (
+            <div key={`${id}-${index}`} className="w-48 h-64 md:w-64 md:h-80 flex-shrink-0 rounded-[2rem] overflow-hidden shadow-lg border-[6px] border-white/90 bg-pink-50 relative group">
+              <img
+                src={`/foto/${id}.webp`}
+                alt={`Kenangan acak ${id}`}
+                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                loading="lazy"
+                decoding="async"
+              />
+              {/* Optional overlay effect on hover */}
+              <div className="absolute inset-0 bg-pink-500/0 group-hover:bg-pink-500/10 transition-colors duration-300"></div>
+            </div>
+          ))}
+        </div>
+      </div>
     </div>
   );
 };
@@ -300,6 +380,9 @@ const LoveStory = () => {
           Dan hari ini, di hari ulang tahunmu, Ridho cuma mau bilang satu hal: Terima kasih sudah ada. Terima kasih sudah mau jadi bagian dari hidup yang berantakan ini. Kamu adalah alasan terbaik untuk tetap semangat setiap harinya. Happy Birthday, sayang.
         </FadeText>
       </StoryContainer>
+
+      {/* AUTO-SCROLLING MARQUEE GALLERY */}
+      <AutoScrollGallery />
 
     </section>
   );

@@ -2,21 +2,21 @@ import { motion } from 'framer-motion';
 
 const photos = [
   {
-    id: 1,
-    url: 'https://images.unsplash.com/photo-1514050566906-8fb539d020d5?auto=format&fit=crop&q=80&w=400&h=400',
+    id: 12,
+    url: '/foto/12.webp',
     caption: 'Tersenyum Manis!',
     rotation: -4,
   },
   {
-    id: 2,
-    url: 'https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&q=80&w=400&h=400',
-    caption: 'Waktu Main...',
+    id: 34,
+    url: '/foto/34.webp',
+    caption: 'Wajah Imut...',
     rotation: 3,
   },
   {
-    id: 3,
-    url: 'https://images.unsplash.com/photo-1498453472095-2c8c2270914c?auto=format&fit=crop&q=80&w=400&h=400',
-    caption: 'Lucu Sekali!',
+    id: 42,
+    url: '/foto/42.webp',
+    caption: 'Paling Lucu!',
     rotation: -2,
   },
 ];
