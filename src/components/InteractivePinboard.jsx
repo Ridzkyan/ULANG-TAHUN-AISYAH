@@ -111,18 +111,23 @@ const generate100Notes = () => {
   
   for (let i = 0; i < 100; i++) {
     const text = baseReasons[i];
-    const color = colors[Math.floor(Math.random() * colors.length)];
-    const rotate = Math.floor(Math.random() * 40) - 20;
-    const top = Math.floor(Math.random() * 85) + 2; 
-    const left = Math.floor(Math.random() * 85) + 2; 
+    const isLast = i === 99;
+
+    const color = isLast ? "bg-red-200 border-2 border-red-400" : colors[Math.floor(Math.random() * colors.length)];
+    const rotate = isLast ? 0 : Math.floor(Math.random() * 40) - 20;
+    
+    // 100th note is exactly centered
+    const top = isLast ? 'calc(50% - 70px)' : `${Math.floor(Math.random() * 85) + 2}%`; 
+    const left = isLast ? 'calc(50% - 70px)' : `${Math.floor(Math.random() * 80) + 2}%`; 
     
     notes.push({
       id: i + 1,
       text: `${i + 1}. ${text}`,
       color,
       rotate: `${rotate}deg`,
-      top: `${top}%`,
-      left: `${left}%`
+      top,
+      left,
+      zIndex: isLast ? 50 : Math.floor(Math.random() * 20) + 1
     });
   }
   return notes;
@@ -176,14 +181,15 @@ const InteractivePinboard = () => {
             initial={{ opacity: 0, scale: 0 }}
             animate={{ opacity: 1, scale: 1, rotate: note.rotate }}
             transition={{ type: "spring", stiffness: 100 }}
-            className={`absolute ${note.color} p-2 md:p-3 w-[110px] md:w-[140px] min-h-[110px] md:min-h-[140px] shadow-lg flex flex-col justify-center items-center text-center select-none`}
+            className={`absolute ${note.color} p-2 md:p-3 w-[110px] md:w-[140px] min-h-[110px] md:min-h-[140px] flex flex-col justify-center items-center text-center select-none ${note.id === 100 ? 'ring-4 ring-pink-500/50' : ''}`}
             style={{
               top: note.top,
               left: note.left,
-              boxShadow: "2px 3px 5px rgba(0,0,0,0.3)"
+              zIndex: note.zIndex,
+              boxShadow: note.id === 100 ? "0px 15px 30px rgba(0,0,0,0.6)" : "2px 3px 5px rgba(0,0,0,0.3)"
             }}
           >
-            <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-3 h-3 bg-red-500 rounded-full shadow-md z-10 border border-red-700">
+            <div className={`absolute -top-2 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full shadow-md z-10 border ${note.id === 100 ? 'bg-pink-500 border-pink-700 w-4 h-4 -top-3' : 'bg-red-500 border-red-700'}`}>
               <div className="absolute top-0.5 right-0.5 w-0.5 h-0.5 bg-white rounded-full opacity-60"></div>
             </div>
             
