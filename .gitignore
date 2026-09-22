@@ -22,3 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Original media files (use WebP/WebM instead)
+public/foto/*.jpeg
+public/foto/*.jpg
+public/lagu/*.mp3
