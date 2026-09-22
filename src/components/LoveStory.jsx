@@ -38,13 +38,14 @@ const PhotoGrid = ({ chapterIndex, isVisible }) => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: Math.min(i * 0.08, 0.4) }}
-            className={`rounded-[1.5rem] overflow-hidden shadow-lg border-[4px] border-white/70 bg-pink-50 
-              ${isFullWidth ? 'col-span-2 h-52 md:h-64' : 'col-span-1 h-36 md:h-48'}`}
+            className={`rounded-[1.5rem] overflow-hidden shadow-lg border-[4px] border-white/70 bg-pink-50 flex items-center justify-center
+              ${isFullWidth ? 'col-span-2' : 'col-span-1'}`}
           >
             <img
               src={`/foto/${id}.webp`}
               alt={`Kenangan ${id}`}
-              className="w-full h-full object-cover hover:scale-110 transition-transform duration-700"
+              // Menggunakan w-full dan h-auto tanpa object-cover agar gambar tidak terpotong
+              className="w-full h-auto max-h-[70vh] object-contain hover:scale-110 transition-transform duration-700"
               loading="lazy"
               decoding="async"
               fetchpriority="low"
