@@ -10,30 +10,18 @@ const MidnightSurprise = () => {
   const triggerFireworks = useCallback(() => {
     setIsActive(true);
     
-    // Play explosion sound if you want to add one in public/explosion.mp3 later
-    // if (audioRef.current) audioRef.current.play().catch(e => console.log(e));
-
-    const duration = 15 * 1000;
-    const animationEnd = Date.now() + duration;
-    const defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 100 };
-
-    function randomInRange(min, max) {
-      return Math.random() * (max - min) + min;
-    }
-
-    const interval = setInterval(function() {
-      const timeLeft = animationEnd - Date.now();
-
-      if (timeLeft <= 0) {
-        return clearInterval(interval);
-      }
-
-      // Reduced from 50 to 25 to prevent lag
-      const particleCount = 25 * (timeLeft / duration);
-      // since particles fall down, start a bit higher than random
-      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-      confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-    }, 800); // Increased interval from 250ms to 800ms to significantly reduce lag
+    // Just a few simple bursts to avoid GPU overload and completely eliminate lag
+    const defaults = { startVelocity: 45, spread: 360, ticks: 60, zIndex: 100 };
+    
+    // Burst 1 (center)
+    setTimeout(() => confetti(Object.assign({}, defaults, { particleCount: 100, origin: { x: 0.5, y: 0.5 } })), 100);
+    // Burst 2 (left & right)
+    setTimeout(() => {
+      confetti(Object.assign({}, defaults, { particleCount: 75, origin: { x: 0.2, y: 0.4 } }));
+      confetti(Object.assign({}, defaults, { particleCount: 75, origin: { x: 0.8, y: 0.4 } }));
+    }, 700);
+    // Burst 3 (center)
+    setTimeout(() => confetti(Object.assign({}, defaults, { particleCount: 100, origin: { x: 0.5, y: 0.3 } })), 1300);
   }, []);
 
   const closeSurprise = () => {
@@ -82,7 +70,6 @@ const MidnightSurprise = () => {
               animate={{ scale: [1, 1.1, 1], opacity: 1 }}
               transition={{ duration: 2, ease: "easeOut" }}
               className="text-5xl md:text-8xl lg:text-9xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-pink-400 to-purple-400 text-center uppercase tracking-tighter drop-shadow-[0_0_20px_rgba(236,72,153,0.8)] z-[100]"
-              style={{ textShadow: "0 0 20px rgba(255,255,255,0.5), 0 0 40px rgba(236,72,153,0.8), 0 0 80px rgba(236,72,153,0.8)" }}
             >
               HAPPY BIRTHDAY
               <br />
