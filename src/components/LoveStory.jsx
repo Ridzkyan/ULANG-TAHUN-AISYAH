@@ -25,12 +25,31 @@ const PhotoGrid = ({ chapterIndex, isVisible }) => {
   if (!isVisible) {
     return <div className="w-full h-64 rounded-[1.5rem] bg-pink-50/50 animate-pulse" />;
   }
+
+  // Menghitung jumlah kolom (span) yang diambil tiap foto agar tidak ada grid yang bolong
+  let currentCol = 0;
+  const spans = ids.map((id) => {
+    const isLandscape = LANDSCAPE_IDS.has(id);
+    let span = 1; // default 1 kolom (portrait)
+
+    if (isLandscape) {
+      if (currentCol === 0) {
+        // Awal baris, landscape bisa full width (2 kolom)
+        span = 2;
+      } else {
+        // Kalau sisa 1 slot di kanan, jadikan ukuran kecil (1 kolom) agar pas mengisi lubang
+        span = 1;
+      }
+    }
+    
+    currentCol = (currentCol + span) % 2;
+    return span;
+  });
+
   return (
     <div className="grid grid-cols-2 gap-3 w-full">
       {ids.map((id, i) => {
-        const isLandscape = LANDSCAPE_IDS.has(id);
-        // First photo full-width, landscape photos full-width, portrait in half-width
-        const isFullWidth = i === 0 || isLandscape;
+        const isFullWidth = spans[i] === 2;
         return (
           <motion.div
             key={id}
