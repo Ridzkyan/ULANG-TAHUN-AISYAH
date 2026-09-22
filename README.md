@@ -1,16 +1,23 @@
-# React + Vite
+# 🎂 Website Ulang Tahun Aisyah
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Website spesial yang dibuat khusus untuk merayakan ulang tahun Aisyah! 💖
+Berisi surat romantis, galeri kenangan perjalanan dari bulan ke bulan, pesan spesial, kuis kejutan, dan musik favorit.
 
-Currently, two official plugins are available:
+🔗 **Live Website:** [https://ulang-tahun-aisyah.vercel.app/](https://ulang-tahun-aisyah.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Fitur ✨
+- 💌 **Surat Kejutan & Pesan Spesial**
+- 📸 **Galeri Perjalanan Kisah** (Bulan 1 - Bulan 9)
+- 🎠 **Galeri Memori Interaktif** dengan Pop-up 80 Foto (Marquee Auto-scroll)
+- 🎶 **Music Player Otomatis** (Otomatis pause saat keluar browser)
+- 🕹️ **Kuis Pengetahuan Pasangan**
+- 🎟️ **Kupon Kencan Spesial**
+- 🎁 **Tombol Kejutan Tengah Malam** (Anti-Lag Fireworks)
+- 📱 **Responsif 100%** untuk tampilan HP (Mobile) & Desktop
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Teknologi 🛠️
+- **React (Vite)**
+- **Tailwind CSS** (Styling)
+- **Framer Motion** (Animasi mulus)
+- **Lucide React** (Ikon cantik)
+- **Canvas Confetti** (Efek ledakan kembang gula)
