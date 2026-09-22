@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Play, Pause, Music } from 'lucide-react';
 
@@ -6,24 +6,34 @@ const MusicPlayer = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(null);
 
-  // Lazily create audio ONLY when user first clicks play.
-  // This prevents music from starting when the intro envelope is clicked,
-  // and also satisfies browser autoplay policies.
-  const getAudio = useCallback(() => {
+  useEffect(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio('/lagu/lagu.webm');
       audioRef.current.loop = true;
     }
-    return audioRef.current;
+
+    // Auto-play when the component mounts (which happens right after user clicks the intro envelope)
+    audioRef.current.play().then(() => {
+      setIsPlaying(true);
+    }).catch(e => {
+      console.log('Autoplay prevented by browser:', e);
+    });
+
+    return () => {
+      if (audioRef.current) {
+        audioRef.current.pause();
+      }
+    };
   }, []);
 
   const togglePlay = () => {
-    const audio = getAudio();
+    if (!audioRef.current) return;
+    
     if (isPlaying) {
-      audio.pause();
+      audioRef.current.pause();
       setIsPlaying(false);
     } else {
-      audio.play().then(() => {
+      audioRef.current.play().then(() => {
         setIsPlaying(true);
       }).catch(e => {
         console.log('Play prevented by browser:', e);
