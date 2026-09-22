@@ -295,114 +295,114 @@ const LoveStory = () => {
       {/* BULAN 1 - Desember 2025 */}
       <StoryContainer
         subtitle="Bulan 1 • Desember 2025"
-        title="Dari Kang Joki ke Kang Bucin"
+        title="Dari Teman Belajar ke Seseorang yang Spesial"
         icon={Gamepad2}
         chapterIndex={0}
         isReversed={false}
       >
         <FadeText>
-          Semuanya dimulai dari sebuah chat di subuh hari, jam 04.49. Ridho yang baru kenal Aisyah lewat teman, iseng nge-chat buat nanya soal game Construct yang lagi dikerjain bersama. Siapa sangka, dari pertanyaan soal batas 40 event sheet, berujung chat marathon sampai dini hari.
+          Semuanya dimulai dari sebuah pesan di subuh hari, jam 04.49. Ridho yang baru mengenal Aisyah lewat teman, memberanikan diri untuk menyapa dan bertanya soal tugas game Construct. Siapa sangka, dari obrolan teknis soal event sheet, obrolan itu mengalir manis hingga dini hari.
         </FadeText>
         <FadeText delay={0.15}>
-          Ridho dengan gagahnya menawarkan diri jadi "kang joki VIP" gratis. Aisyah yang awalnya malu-malu, pelan-pelan mulai nyaman berbagi cerita. Dari urusan game yang ribet, nyambung ke candaan, sampai Ridho bilang dia "rugi" bantuin tapi sebenernya dia yang paling semangat.
+          Ridho dengan semangat menawarkan diri menjadi "tutor pribadi VIP" secara cuma-cuma. Aisyah yang awalnya malu-malu, perlahan mulai nyaman berbagi cerita. Dari urusan tugas yang rumit, menyambung ke candaan ringan, sampai Ridho merasa sangat beruntung bisa membantunya.
         </FadeText>
         <FadeText delay={0.3}>
-          Satu bulan penuh ngerjain game bareng, ketawa-ketawa soal event sheet yang penuh batas, dan tanpa sadar Ridho sudah mulai nungguin chat dari Aisyah. Awal yang sederhana banget, tapi dari sinilah semuanya dimulai.
+          Satu bulan penuh mengerjakan tugas bersama, tertawa tentang hal-hal kecil, dan tanpa sadar Ridho sudah mulai menantikan pesan dari Aisyah setiap harinya. Sebuah awal yang sederhana, namun menjadi awal dari segalanya.
         </FadeText>
       </StoryContainer>
 
       {/* BULAN 2 - Januari 2026 */}
       <StoryContainer
         subtitle="Bulan 2 • Januari 2026"
-        title="PDKT Subuh & Candaan yang Baper"
+        title="Obrolan Subuh & Candaan yang Menghangatkan Hati"
         icon={Coffee}
         chapterIndex={1}
         isReversed={true}
       >
         <FadeText>
-          Memasuki Januari, frekuensi chatnya makin sering dan makin ga nyambung sama game. Mulai ngomongin kehidupan sehari-hari, bahas soal nikah muda yang tiba-tiba muncul di obrolan tengah malam, sampai Ridho yang mulai berani kirim sticker sayang-sayangan.
+          Memasuki Januari, frekuensi obrolan semakin intens. Mulai membahas kehidupan sehari-hari, membicarakan impian masa depan di tengah malam, hingga Ridho yang mulai memberanikan diri mengirim stiker manis.
         </FadeText>
         <FadeText delay={0.15}>
-          Ada satu momen lucu — Ridho yang biasanya sok cool malah jadi yang paling nunggu balesan. Kalau Aisyah telat balas, dia langsung kirim tanda tanya berderet. Dan kalau Aisyah balas panjang, dia makin semangat ngebalesnya sampai subuh.
+          Ada momen lucu yang selalu dikenang — Ridho yang biasanya terlihat cuek malah menjadi pihak yang paling menantikan balasan. Kalau Aisyah terlambat membalas, ia akan penasaran. Dan kalau Aisyah membalas panjang, ia semakin antusias membalasnya hingga subuh.
         </FadeText>
         <FadeText delay={0.3}>
-          Di bulan ini Ridho mulai sadar — ini bukan lagi sekadar teman ngerjain tugas. Perasaan yang tumbuh pelan-pelan tapi susah dibendung, dan setiap chat Aisyah jadi hal pertama yang dicari setiap pagi.
+          Di bulan ini Ridho mulai menyadari — ini bukan lagi sekadar teman bertukar cerita. Ada perasaan yang tumbuh secara perlahan, dan setiap sapaan Aisyah menjadi hal pertama yang selalu dicari setiap pagi.
         </FadeText>
       </StoryContainer>
 
       {/* BULAN 3 - Februari 2026 */}
       <StoryContainer
         subtitle="Bulan 3 • Februari 2026"
-        title="Resmi Jadi Milik Satu Sama Lain"
+        title="Resmi Menjadi Milik Satu Sama Lain"
         icon={Heart}
         chapterIndex={2}
         isReversed={false}
       >
         <FadeText>
-          Februari adalah bulan bersejarah. Setelah hampir dua bulan jadi teman yang "lebih dari teman", akhirnya Ridho resmi meminta Aisyah jadi pacarnya. Kata-kata "sayang" yang tadinya masih canggung, kini keluar alami seperti sudah terbiasa sejak lama.
+          Februari adalah bulan bersejarah. Setelah hampir dua bulan menjadi "lebih dari teman", akhirnya Ridho secara resmi mengungkapkan perasaannya. Kata-kata manis yang tadinya masih terasa canggung, kini terucap begitu alami.
         </FadeText>
         <FadeText delay={0.15}>
-          Di awal bulan ini, mereka sudah saling manggil "sayang" dan "beb" dengan santainya. Malam-malam begadang bareng via telpon jadi ritual wajib. Aisyah yang lagi istirahat dari nugas malah jadi curhat session sama Ridho, dari nonton TikTok bareng sampai cerita nggak penting yang justru paling diinget.
+          Di awal bulan ini, panggilan sayang sudah menjadi hal yang biasa. Menghabiskan waktu bersama melalui telepon di malam hari menjadi rutinitas wajib. Aisyah yang sedang lelah mengerjakan tugas selalu menemukan tempat ternyaman untuk bercerita pada Ridho, dari hal-hal seru hingga cerita sederhana yang paling berkesan.
         </FadeText>
         <FadeText delay={0.3}>
-          Bulan ini Ridho resmi jadi pacar Aisyah — dan sejak saat itu, tidak ada hari tanpa "lopyu sayang" sebelum tidur.
+          Bulan ini Ridho resmi menjadi kekasih Aisyah — dan sejak saat itu, tak ada hari yang terlewat tanpa ucapan sayang sebelum tidur.
         </FadeText>
       </StoryContainer>
 
       {/* BULAN 4 - Maret 2026 */}
       <StoryContainer
         subtitle="Bulan 4 • Maret 2026"
-        title="30 Menit Matung di Depan Kos"
+        title="30 Menit Berdiri Setia di Depan Kos"
         icon={MapPin}
         chapterIndex={3}
         isReversed={true}
       >
         <FadeText>
-          Maret datang bersama momen yang sampai sekarang masih sering jadi bahan ketawa — momen legendaris "30 menit matung di depan kosan." Setelah kencan pertama, Ridho dan Aisyah sama-sama gamau pulang duluan. Akhirnya Ridho berdiri di depan kos hampir setengah jam, kaki pegal, tapi tetap ga mau gerak.
+          Maret datang bersama momen manis yang tak terlupakan — momen legendaris "30 menit menunggu di depan kosan." Setelah menghabiskan waktu bersama, Ridho dan Aisyah sama-sama enggan untuk berpisah. Akhirnya Ridho rela berdiri di depan kos hampir setengah jam, tak ingin momen itu cepat berlalu.
         </FadeText>
         <FadeText delay={0.15}>
-          Aisyah yang cuci muka dulu baru bobo pun masih sempat kirim chat, "30 menit kita di depan yang," dengan nada manja yang langsung bikin Ridho klepek-klepek. Ridho cuma bisa balas, "lebih itu yakin aku," sambil ngaku kalau Aisyah gemesin banget hari itu sampai dia gamau beranjak.
+          Aisyah yang baru saja bersiap untuk tidur pun masih menyempatkan diri mengirim pesan, "30 menit kita di depan ya sayang," dengan nada manja yang langsung membuat Ridho tersenyum salah tingkah. Ridho merespon bahwa Aisyah sangat manis hari itu sehingga ia enggan beranjak pergi.
         </FadeText>
         <FadeText delay={0.3}>
-          Dari momen ini juga lahir candaan soal Ridho yang pura-pura "kedinginan di luar" yang langsung dibalas Aisyah dengan deretan emoji tertawa. Bulan penuh momen lucu yang selalu dikenang.
+          Dari momen ini lahir candaan lucu di mana Ridho berpura-pura kedinginan di luar, yang dibalas Aisyah dengan tawa hangat. Sebuah bulan yang penuh dengan momen manis dan kelucuan yang selalu dikenang.
         </FadeText>
       </StoryContainer>
 
       {/* BULAN 5 - April 2026 */}
       <StoryContainer
         subtitle="Bulan 5 • April 2026"
-        title="I Love You di Jalanan Malam"
+        title="Kata Cinta di Tengah Jalan Malam"
         icon={Sparkles}
         chapterIndex={4}
         isReversed={false}
       >
         <FadeText>
-          April adalah bulan romantis versi Ridho dan Aisyah — versi yang nyata, bukan dari film. Ridho yang lagi otw ke tempat teman malam-malam tiba-tiba kirim, "aku otw tempat padil sayang, I LOVE YOUUU!" dengan deretan emoji hati.
+          April adalah bulan paling romantis bagi mereka. Ridho yang sedang dalam perjalanan di malam hari tiba-tiba mengirimkan pesan, "Aku sedang di jalan sayang, I LOVE YOUUU!" yang dipenuhi dengan emoji hati.
         </FadeText>
         <FadeText delay={0.15}>
-          Aisyah yang tahu Ridho biasanya cool dan malu-maluan, langsung balas "LOVE YOU TOO" dengan semangat. Teman-teman Ridho yang udah nunggu dari tadi langsung kepo mencecar, nanya kenapa datangnya senyum-senyum sendiri. Ridho ngaku dengan polos, "deg-degan habis dichat," sampai temannya ketawa.
+          Aisyah yang mengetahui bahwa Ridho biasanya pemalu, langsung membalas "LOVE YOU TOO" dengan sangat antusias. Teman-teman Ridho yang sudah menunggu langsung heboh menggoda, penasaran mengapa ia datang dengan senyuman lebar. Ridho pun mengaku dengan jujur bahwa ia sedang salah tingkah membaca balasan Aisyah.
         </FadeText>
         <FadeText delay={0.3}>
-          Bulan ini penuh momen kecil yang hangat — dari chat "hati-hati" di malam hari, sampai tawa bareng soal hal-hal random yang cuma mereka yang ngerti. Cinta yang sudah makin nyaman, makin dalam.
+          Bulan ini dipenuhi oleh kehangatan-kehangatan kecil — dari pesan pengingat untuk berhati-hati, hingga tawa bahagia tentang hal-hal yang hanya dimengerti oleh mereka berdua. Cinta yang terasa semakin nyaman dan semakin dalam.
         </FadeText>
       </StoryContainer>
 
       {/* BULAN 6 - Mei 2026 */}
       <StoryContainer
         subtitle="Bulan 6 • Mei 2026"
-        title="Imut Itu Aisyah, Bukan Adek!"
+        title="Yang Paling Menggemaskan Hanya Aisyah"
         icon={Star}
         chapterIndex={5}
         isReversed={true}
       >
         <FadeText>
-          Mei penuh dengan candaan segar khas mereka. Di satu momen malam, Ridho iseng nyeletuk soal adiknya yang imut dan lucu. Aisyah yang mendengar langsung protes keras, "gaa anjay aku ga amit amit, aku IMUT IMUTTT!" dengan huruf kapital penuh semangat.
+          Mei diisi dengan banyak candaan menyegarkan. Di suatu malam, Ridho tak sengaja bercerita tentang betapa lucunya sang adik. Aisyah yang mendengarnya langsung merespon dengan sangat menggemaskan, mengklaim bahwa dirinya lah yang paling imut dengan nada cemburu yang lucu.
         </FadeText>
         <FadeText delay={0.15}>
-          Ridho tentu saja langsung ketawa dan ngaku kalau Aisyah tetap yang paling dia sayang. Di bulan yang sama, kebiasaan mandi malam dan telponan sampai jam 1 pagi sudah jadi rutinitas tetap — Aisyah cerita soal hari-harinya, Ridho dengerin sambil senyum-senyum sendiri.
+          Melihat respon manis itu, Ridho tentu saja tertawa dan meyakinkan bahwa Aisyah akan selalu menjadi yang paling disayanginya. Di bulan yang sama, saling bertukar kabar hingga larut malam sudah menjadi kebiasaan tak terpisahkan — Aisyah membagikan kesehariannya, dan Ridho selalu mendengarkan dengan penuh senyuman.
         </FadeText>
         <FadeText delay={0.3}>
-          Ada juga candaan soal Ridho yang "pengen nongkrong tapi harus pulang cepat" karena Aisyah sudah nunggu kabar. Enam bulan bersama, dan rasanya makin sulit untuk tidak saling kangen.
+          Bahkan saat sedang berkumpul bersama teman, Ridho selalu memastikan untuk lekas pulang karena tahu ada seseorang yang dengan setia menunggunya. Setengah tahun bersama, membuktikan bahwa rasa kangen itu tak pernah pudar.
         </FadeText>
       </StoryContainer>
 
